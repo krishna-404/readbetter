@@ -1,0 +1,55 @@
+header{
+    position: fixed;
+    top:0;
+    left:0;
+    background: lightgrey;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    width: 30%;
+    text-align: center;
+}
+
+#main{
+    margin-left: 35%;
+}
+
+#two{
+    text-align: center;
+}
+
+h2{
+    margin-top: 50px;
+    padding-top:50px;
+}
+.image-box{
+ 
+    max-width: 8rem;
+    overflow: auto;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 20px;  
+}
+
+.image-box:hover{
+    box-shadow: 4px 4px 6px #c4c4c4;
+}
+
+.images{
+    border-radius: 50%;
+    max-width: 90%;
+    height: auto;
+    margin:0;
+    padding:0;
+}
+h3{
+    margin: 0;
+    padding: 0;
+}
+
+p{
+    margin: 0;
+    padding: 0
+}
