@@ -19,6 +19,10 @@
 
             <form id="newBookForm" enctype="multipart/form-data" method="post" action="/leader_data/newLeader">
                 <label>
+                Twitter ID:
+                <input name="twitter_id" type="text" maxlength="200" required placeholder="Twitter ID">
+                </label>
+                <label>
                 Leader Name:
                 <input name="leader" type="text" maxlength="200" required placeholder="Leaders Name">
                 </label>
@@ -27,8 +31,8 @@
                 <input name="leader_image" type="file">
                 </label>
                 <label>
-                Twitter ID:
-                <input name="twitter_id" type="text" maxlength="200" required placeholder="Twitter ID">
+                Image Credits:
+                <input name="image_credits" type="text" required placeholder="Image Credits">
                 </label>
                 <label>
                 Twitter Followers (in Million):

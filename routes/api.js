@@ -3,7 +3,8 @@
 const multer = require('multer');
 const path = require('path');
 
-const LeaderController = require('../controllers/leaderController');
+const LeaderController  = require('../controllers/leaderController');
+
 
 var Storage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -11,10 +12,10 @@ var Storage = multer.diskStorage({
     },
     filename: function(req, file, callback) {
 
-        console.log("req.body.twitter_id: ", req.body.leader.twitter_id, "req.body.leader: ", req.body.leader, "req.body: ", req.body);
+        console.log("req.body.twitter_id: ", req.body.twitter_id, "req.body.leader: ", req.body.leader, "req.body: ", req.body,"new", req.body["twitter_id"]);
+        
         const fileExt = path.extname(file.originalname). toLowerCase();
-        fileName = req.body.twitter_id || file.originalname
-        const targetName = fileName;
+        const targetName = req.body.twitter_id ? req.body.twitter_id + fileExt : file.originalname;
 
         callback(null, targetName);
     }
@@ -34,7 +35,7 @@ function router(app){
         });
 
      app.route('/leader_data/:twitter_id')
-    //     .get(leader_controller.dispLeader)
+         .get(leaderController.leaderList)
          .post(upload.single("leader_image"), leaderController.newLeader);
 };
 

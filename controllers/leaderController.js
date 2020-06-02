@@ -1,42 +1,30 @@
-//const multer = require('multer');
-
-
 const LeaderModel = require('../models/leader_model');
+const BookModel = require('../models/books_model');
 
 function LeaderController(){
 
-    this.dispLeader = function (req,res){
-        
-        Leader.findOne({'twitter.id' : req.params.twitter_id}, function(err,doc){
-            if(err) return next(err);
-            res.send("success")
+    this.leaderList = function (req,res){
+        if(req.params.twitter_id == "allLeaders"){
+            LeaderModel.find({}, '-_id -__v -updated_on -updated_by -created_on -created_by', function(err,doc){
+                if(err) return next(err);
+                res.json(doc);
+            });
+        } 
+        else {
+            LeaderModel.findOne({'twitter.id' : req.params.twitter_id}, function(err,doc){
+                if(err) return next(err);
+                res.json(doc);
         })
+        }
     }
 
     this.newLeader = function (req,res) {
         
         const path = require('path');
-        //const fs = require('fs');
-      
+              
         const tempPath = req.file.path;
         const fileExt = path.extname(req.file.originalname). toLowerCase();
         const targetPath = `./images/${req.body.twitter_id || req.file.originalname}${fileExt}`;
-
-        // if(fileExt == ".png" || fileExt == ".jpg" || fileExt =="jpeg"){
-        //     fs.rename(tempPath, targetPath, err => {
-        //         if(err) return res.send("Image Upload Error");
-        //     })
-        // } else {
-        //     fs.unlink(tempPath, err => {
-        //         if(err) return res.send("Image Upload Error");
-
-        //         res
-        //             .status(403)
-        //             .contentType("text/plain")
-        //             .end("Only .png / .jpg / .jpeg files are allowed")
-        //     })
-        // }
-
 
         let newLeader = new LeaderModel({
             leader_name : req.body.leader,
@@ -47,7 +35,16 @@ function LeaderController(){
                      credits: req.body.image_credits}],
             booksReco: [{name: req.body.book_name,
                          author: req.body.author,
-                         ISBN: req.body.ISBN}]
+                         ISBN13: req.body.ISBN,
+                         amazonLink: req.body.amazonLink,
+                         bookImgPath: req.body.bookImgPath,
+                         bookImgCredits: req.body.bookImgCredits,
+                         whereRecommended: req.body.whereRecommended,
+                         whenRecommended: req.body.whenRecommended}],
+            created_on  : new Date(),
+            created_by  : req.connection.remoteAddress,
+            updated_on  : new Date(),
+            updated_by  : req.connection.remoteAddress
         })
         
         newLeader.save(function (err) {
