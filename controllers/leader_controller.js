@@ -6,7 +6,7 @@ function LeaderModel(){
         
         Leader.findOne({'twitter.id' : req.params.twitter_id}, function(err,doc){
             if(err) return next(err);
-            res.send(doc)
+            res.send("success")
         })
         
         
