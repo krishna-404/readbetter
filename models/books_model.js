@@ -11,4 +11,4 @@ const bookSchema = new Schema ({
                  ISBN: {type: String, unique: true}}]
 })
 
-module.exports = mongoose.model('book', bookSchema) 
+module.exports = mongoose.model('Book', bookSchema) 

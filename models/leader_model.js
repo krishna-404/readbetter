@@ -13,4 +13,4 @@ const leaderSchema = new Schema ({
                  ISBN: {type: String, unique: true}}]
 })
 
-module.exports = mongoose.model('leader', leaderSchema)
+module.exports = mongoose.model('Leader', leaderSchema)
