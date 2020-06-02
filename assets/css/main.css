@@ -30,7 +30,8 @@ h2{
     text-align: center;
     border-radius: 5px;
     display: inline-block;
-    margin: 20px;  
+    margin: 20px;
+    height: 12rem;
 }
 
 .image-box:hover{
@@ -39,7 +40,7 @@ h2{
 
 .images{
     border-radius: 50%;
-    max-width: 90%;
+    width: 90%;
     height: auto;
     margin:0;
     padding:0;
