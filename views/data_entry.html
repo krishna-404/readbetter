@@ -1,0 +1,57 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Data Entry for Read Better</title>
+        <link rel="stylesheet" href="assets\data_entry\data_entry_style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Data Entry for Read Better</h1>
+        </header>
+
+        <main>
+            <p>Create new Leader</p>
+
+            <form id="newBookForm" enctype="multipart/form-data" method="post" action="/leader_data/newLeader">
+                <label>
+                Leader Name:
+                <input name="leader" type="text" maxlength="200" required placeholder="Leaders Name">
+                </label>
+                <label>
+                Leader Image:
+                <input name="leader_image" type="file">
+                </label>
+                <label>
+                Twitter ID:
+                <input name="twitter_id" type="text" maxlength="200" required placeholder="Twitter ID">
+                </label>
+                <label>
+                Twitter Followers (in Million):
+                <input name="twitter_followers" type="text" maxlength="200" required placeholder="Followers in Millions">
+                </label>
+                <label>
+                Book Name:
+                <input name="book_name" type="text" maxlength="200" required placeholder="Book Name">
+                </label>
+                <label>
+                Author:
+                <input name="author" type="text" maxlength="200" required placeholder="Author Name">
+                </label>
+                <label>
+                ISBN
+                <input name="ISBN" type="text" maxlength="100" required placeholder="ISBN">
+                </label>
+                <label>
+                Amazon Link
+                <input name="amazonLink" type="text" required placeholder="Amazon Link">
+                </label>
+                <button type="submit" id="submit-leader">Add Leader</button>
+            </form>
+        </main>
+    </body>
+</html>

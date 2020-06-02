@@ -10,7 +10,8 @@ const leaderSchema = new Schema ({
              credits: {type: String}}],
     booksReco: [{name: {type: String, required: true},
                  Author: {type: String},
-                 ISBN: {type: String, unique: true}}]
+                 ISBN: {type: String, unique: true},
+                 amazonLink: {type: String, unique: true}}]
 })
 
 module.exports = mongoose.model('Leader', leaderSchema)
