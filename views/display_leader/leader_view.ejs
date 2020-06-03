@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Read Better</title>
+		<title>Read Better - Books Recommended by <%= data.leader_name %></title>
 		<meta charset="utf-8" />
-		<meta name="Read Better" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" type="text/css" href="assets\main\main_style.css" />
+		<meta name="Read Better - Books Recommended by <%= data.leader_name %>" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="views/display_leader/leader_view-style.css" />
 	</head>
 	<body id="top">
 
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="#" class="image avatar"><img id= "readbetter_logo" src="images\readbetter_logo.jpg" alt="" /></a>
+					<a href="#" class="image avatar"><img id= "readbetter_logo" src="images\readbetter_logo.png" alt="" /></a>
 					<h1><strong>Read Better</strong><br />
 					<br />
 					Know what the best minds are reading.<br />
@@ -24,14 +24,16 @@
 
 				<!-- Two -->
 					<section id="two">
-						<h2>Find the books read & recommended by the top leaders here</h2>
-						<div class="row" id='leader_cards'>
-							<% data.forEach(function(dat){ %>
-								<article class="image-box">
-									<a href="/leader_data/<%= dat.twitter.id %>"><img src="<%= dat.images[0].path %>" alt="" class="images" /></a>
-									<h3><%= dat.leader_name %></h3>
-									<p><a href="https://www.twitter.com/<%= dat.twitter.id %>">@<%= dat.twitter.id %></a></p>
-								</article>
+						<h2>Read Better - Books Recommended by <%= data.leader_name %></h2>
+						<div class="row" id='book_cards'>
+							<% data.booksReco.forEach(function(dat){ %>
+								<a href="<%= dat.amazonLink %>"><article class="image-box">
+									<img src="<%= dat.bookImgPath %>" alt="" class="images" />
+									<div class = "card_details">
+										<h3><%= dat.book_name %></h3>
+										<p><%= dat.author %></p>
+									</div>
+								</article></a>
 							<% }); %>
 						</div>
 					</section>

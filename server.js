@@ -27,15 +27,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-  const LeaderModel  = require(process.cwd() + '/models/leader_model');
-  app.set('view engine', 'ejs');
-  app.route('/')
-    .get(function (req, res) {
-      LeaderModel.find({}, '-_id -__v -updated_on -updated_by -created_on -created_by').lean().exec((req,doc) => {
-        res.render(process.cwd() + '/views/index.ejs', {data: doc})
-      })
-
-    });
+ 
+  
+  
 
   apiRoutes(app);
 

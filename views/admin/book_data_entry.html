@@ -1,0 +1,65 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Data Entry for Read Better</title>
+        <link rel="stylesheet" href="..\views\admin\data_entry_style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Data Entry for Read Better</h1>
+        </header>
+
+        <main>
+            <p>Create new Book</p>
+
+            <form id="newBookForm" enctype="multipart/form-data" method="post" action="/books_data/newBook">
+                <label>
+                Leader Twitter ID:
+                <input name="twitter_id" type="text" maxlength="200" required placeholder="Twitter ID">
+                </label>
+                <label>
+                Book Name:
+                <input name="book_name" type="text" maxlength="200" required placeholder="Book Name">
+                </label>
+                <label>
+                ISBN
+                <input name="ISBN" type="text" maxlength="100" required placeholder="ISBN">
+                </label>
+                <label>
+                Author:
+                <input name="author" type="text" maxlength="200" required placeholder="Author Name">
+                </label>
+                <label>
+                Tags: (Comma Seperated)
+                <input name="tags" type="text" required placeholder="Fiction, Startups, Motivation">
+                </label>
+                <label>
+                Book Image:
+                <input name="book_image" type="file">
+                </label>
+                <label>
+                Image Credits:
+                <input name="image_credits" type="text" required placeholder="Image Credits">
+                </label>
+                <label>
+                Amazon Link
+                <input name="amazonLink" type="text" required placeholder="Amazon Link">
+                </label>
+                <label>
+                Where Recommended:
+                <input name="where_recommended" type="text" required placeholder="Where was it recommended?">
+                </label>
+                <label>
+                When Recommended:
+                <input name="when_recommended" type="date" >
+                </label>
+                <button type="submit" id="submit-book">Add Book</button>
+            </form>
+        </main>
+    </body>
+</html>

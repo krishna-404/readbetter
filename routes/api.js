@@ -4,18 +4,27 @@ const multer = require('multer');
 const path = require('path');
 
 const LeaderController  = require('../controllers/leaderController');
-
+const DisplayController = require('../controllers/displayController')
+const BooksController = require('../controllers/booksController')
 
 var Storage = multer.diskStorage({
     destination: function(req, file, callback) {
-        callback(null, "./images");
+
+        const fileExt = path.extname(file.originalname). toLowerCase();
+        
+        if(fileExt == ".png" || fileExt == ".jpg" || fileExt == ".jpeg"){
+        let imagePath = req.body.book_name ? "./images/books" : "./images/leaders"; 
+        callback(null, imagePath);
+        } else {
+            return res.send("Only png/jpg/jpeg files are accepted")
+        }
     },
     filename: function(req, file, callback) {
-
-        console.log("req.body.twitter_id: ", req.body.twitter_id, "req.body.leader: ", req.body.leader, "req.body: ", req.body,"new", req.body["twitter_id"]);
-        
+      
         const fileExt = path.extname(file.originalname). toLowerCase();
-        const targetName = req.body.twitter_id ? req.body.twitter_id + fileExt : file.originalname;
+        const targetName = req.body.ISBN ? 
+                                req.body.ISBN + fileExt :
+                                req.body.twitter_id ? req.body.twitter_id + fileExt : file.originalname;
 
         callback(null, targetName);
     }
@@ -28,15 +37,22 @@ const upload =  multer({
 function router(app){
 
     const leaderController = new LeaderController();
+    const displayController = new DisplayController();
+    const booksController = new BooksController();
 
-    app.route('/data_entry')
-        .get((req,res) => {
-            res.sendFile(`${process.cwd()}`+ '/views/data_entry.html');
-        });
+    app.route('/')
+        .get(displayController.displayHome);
 
-     app.route('/leader_data/:twitter_id')
-         .get(leaderController.leaderList)
-         .post(upload.single("leader_image"), leaderController.newLeader);
+    app.route('/:twitter_id')
+        .get(displayController.displayLeader);
+
+    app.route('/leader_data/:twitter_id')
+        .get(leaderController.leaderList)
+        .post(upload.single("leader_image"), leaderController.newLeader);
+
+    app.route('/books_data/:book_id')
+        .get(booksController.booksList)
+        .post(upload.single("book_image"), booksController.newBook)
 };
 
 module.exports = router;

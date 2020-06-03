@@ -1,3 +1,5 @@
+
+
 const LeaderModel = require('../models/leader_model');
 const BookModel = require('../models/books_model');
 
@@ -9,7 +11,9 @@ function LeaderController(){
                 if(err) return next(err);
                 res.json(doc);
             });
-        } 
+        } else if(req.params.twitter_id == "newLeader") {
+            res.sendFile(`${process.cwd()}`+ '/views/admin/leader_data_entry.html');
+        }
         else {
             LeaderModel.findOne({'twitter.id' : req.params.twitter_id}, function(err,doc){
                 if(err) return next(err);
@@ -20,27 +24,12 @@ function LeaderController(){
 
     this.newLeader = function (req,res) {
         
-        const path = require('path');
-              
-        const tempPath = req.file.path;
-        const fileExt = path.extname(req.file.originalname). toLowerCase();
-        const targetPath = `./images/${req.body.twitter_id || req.file.originalname}${fileExt}`;
-
         let newLeader = new LeaderModel({
             leader_name : req.body.leader,
-            click_count: 0,
             twitter: {id: req.body.twitter_id,
                       followers: req.body.twitter_followers},
-            images: [{path: targetPath,
+            images: [{path: req.file.path,
                      credits: req.body.image_credits}],
-            booksReco: [{name: req.body.book_name,
-                         author: req.body.author,
-                         ISBN13: req.body.ISBN,
-                         amazonLink: req.body.amazonLink,
-                         bookImgPath: req.body.bookImgPath,
-                         bookImgCredits: req.body.bookImgCredits,
-                         whereRecommended: req.body.whereRecommended,
-                         whenRecommended: req.body.whenRecommended}],
             created_on  : new Date(),
             created_by  : req.connection.remoteAddress,
             updated_on  : new Date(),

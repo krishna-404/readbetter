@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Read Better</title>
+		<meta charset="utf-8" />
+		<meta name="Read Better" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="views\main\main_style.css" />
+	</head>
+	<body id="top">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="#" class="image avatar"><img id= "readbetter_logo" src="images\readbetter_logo.png" alt="" /></a>
+					<h1><strong>Read Better</strong><br />
+					<br />
+					Know what the best minds are reading.<br />
+					</h1>
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Two -->
+					<section id="two">
+						<h2>Find the books read & recommended by the top leaders here</h2>
+						<div class="row" id='leader_cards'>
+							<% data.forEach(function(dat){ %>
+								<a href="/<%= dat.twitter.id %>"><article class="image-box">
+									<img src="<%= dat.images[0].path %>" alt="" class="images" />
+									<h3><%= dat.leader_name %></h3>
+									<p><%= dat.booksReco.length %> Books</p>
+								</article></a>
+							<% }); %>
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+	<!--				<ul class="copyright">
+					</ul>
+	-->
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+		<!-- <script src="assets\main\main_jquery.js"> </script> -->
+			
+
+	</body>
+</html>
