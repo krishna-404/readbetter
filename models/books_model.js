@@ -17,7 +17,8 @@ const bookSchema = new Schema({
       leader_name: { type: String, required: true },
       twitter_id: { type: String },
       whereRecommended: { type: String },
-      whenRecommended: { type: Date }
+      whenRecommended: { type: Date },
+      leader_comment: {type: String}
     }
   ],
   created_on: { type: Date, default: Date.now },

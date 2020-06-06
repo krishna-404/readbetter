@@ -19,7 +19,8 @@ function BooksController() {
       bookImgPath: req.file.path,
       bookImgCredits: req.body.image_credits,
       whereRecommended: req.body.where_recommended,
-      whenRecommended: req.body.when_recommended
+      whenRecommended: req.body.when_recommended,
+      leaders_comment: req.body.leaders_comment
     };
 
     //check if the leader exists
@@ -73,7 +74,9 @@ function BooksController() {
                 leader_name: doc.leader_name,
                 twitter_id: req.body.twitter_id,
                 whereRecommended: req.body.where_recommended,
-                whenRecommended: req.body.when_recommended
+                whenRecommended: req.body.when_recommended,
+                leaders_comment: req.body.leaders_comment
+
               }
             ],
             created_on: new Date(),
@@ -133,7 +136,8 @@ function BooksController() {
           leader_name: leader.leader_name,
           twitter_id: req.body.twitter_id,
           whereRecommended: req.body.where_recommended,
-          whenRecommended: req.body.when_recommended
+          whenRecommended: req.body.when_recommended,
+          leaders_comment: req.body.leaders_comment
         };
         await BookModel.updateOne(
           { _id: book._id },

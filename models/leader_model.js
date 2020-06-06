@@ -20,7 +20,8 @@ const leaderSchema = new Schema({
       bookImgPath: { type: String },
       bookImgCredits: { type: String },
       whereRecommended: { type: String },
-      whenRecommended: { type: Date }
+      whenRecommended: { type: Date },
+      leader_comment: {type: String}
     }
   ],
   created_on: { type: Date, default: Date.now },
