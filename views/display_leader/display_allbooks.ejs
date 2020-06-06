@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Read Better - Books Recommended by <%= data.leader_name %></title>
+		<title>Read Better - All books on portal</title>
 		<meta charset="utf-8" />
-		<meta name="Read Better - Books Recommended by <%= data.leader_name %>" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" type="text/css" href="views/display_leader/leader_view-style.css" />
+		<meta name="Read Better - All the books on the portal" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="views/display_leader/display_allbooks-style.css" />
 	</head>
 	<body id="top">
 
@@ -24,14 +24,17 @@
 
 				<!-- Two -->
 					<section id="two">
-						<h2>Read Better - Books Recommended by <%= data.leader_name %></h2>
+						<h2>Read Better - All books on Portal</h2>
 						<div class="row" id='book_cards'>
-							<% data.booksReco.forEach(function(dat){ %>
-								<a href="<%= dat.amazonLink %>"><article class="image-box">
-									<img src="<%= dat.bookImgPath %>" alt="" class="images" />
+							<% data.forEach(function(dat){ %>
+								<a href="<%= dat.amazonLink %>" target="_blank"><article class="image-box">
+									<img src="<%= dat.images[0].path %>" alt="" class="images" />
 									<div class = "card_details">
 										<h3><%= dat.book_name %></h3>
-										<p><%= dat.author.join(', ') %></p>
+										<p><%= dat.book_author.join(', ') %></p>
+                    <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %><%= dat.twitter_id %> <% }); %></p>
+<!--               <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %><a href="/<%= dat.twitter_id %>" target="_blank">@<%= dat.twitter_id %></a> <% }); %></p>
+-->
 									</div>
 								</article></a>
 							<% }); %>

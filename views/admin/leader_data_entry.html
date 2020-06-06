@@ -24,19 +24,23 @@
                 </label>
                 <label>
                 Leader Name:
-                <input name="leader" type="text" maxlength="200" required placeholder="Leaders Name">
+                <input name="leader_name" type="text" maxlength="200" required placeholder="Leaders Name">
+                </label>
+                <label>
+                Leader Bio:
+                <textarea name="leader_bio" type="text" required rows="4" cols="40"> A short bio about the leader...</textarea>
                 </label>
                 <label>
                 Leader Image:
-                <input name="leader_image" type="file">
+                <input name="leader_image" required type="file">
                 </label>
                 <label>
                 Image Credits:
-                <input name="image_credits" type="text" required placeholder="Image Credits">
+                <input name="image_credits" type="text" placeholder="Image Credits">
                 </label>
                 <label>
                 Twitter Followers (in Million):
-                <input name="twitter_followers" type="text" maxlength="200" required placeholder="Followers in Millions">
+                <input name="twitter_followers" type="text" maxlength="200" placeholder="Followers in Millions">
                 </label>
                 <button type="submit" id="submit-leader">Add Leader</button>
             </form>

@@ -1,23 +1,24 @@
-const express     = require('express');
-const bodyParser  = require('body-parser');
-const mongoose  = require('mongoose');
-const helmet      = require('helmet');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const helmet = require("helmet");
 
-
-var apiRoutes  = require('./routes/api.js');
+var apiRoutes = require("./routes/api.js");
 
 const app = express();
 
 app.use(helmet());
 
 //Database mongoose  connection
-mongoose.connect(process.env.DB, { useNewUrlParser: true, 
-                                   useFindAndModify: false,
-                                   useCreateIndex: true,
-                                   useUnifiedTopology: true });
+mongoose.connect(process.env.DB, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+});
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // to determine the directories for other files
 app.use(express.static(__dirname));
@@ -26,14 +27,9 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+apiRoutes(app);
 
- 
-  
-  
-
-  apiRoutes(app);
-
-  app.use(function(req, res, next) {
+app.use(function(req, res, next) {
     res.status(404)
       .type('text')
       .send('Not Found');

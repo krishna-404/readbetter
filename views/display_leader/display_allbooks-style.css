@@ -1,0 +1,81 @@
+header{
+    position: fixed;
+    top:0;
+    left:0;
+    background: lightgrey;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    width: 30%;
+    text-align: center;
+}
+
+#readbetter_logo{
+    width : 15rem;
+}
+
+#main{
+    margin-left: 35%;
+}
+
+#two{
+    text-align: center;
+}
+
+h2{
+    margin-top: 10px;
+    padding-top:50px;
+    margin-bottom: 2rem;
+}
+
+#book_cards{
+    display: block;
+    width: 100%
+}
+.image-box{
+   
+    border-bottom: solid 1px #c4c4c4;
+    /* border-width: 1px;
+    border-color: #c4c4c4; */
+    width: 100%;
+    overflow: auto;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    margin: 0.5rem;
+    height: 10rem;
+}
+
+.image-box:hover{
+    box-shadow: 4px 4px 6px #c4c4c4;
+}
+
+.images{
+    
+    width: auto;
+    height: 100%;
+    margin:0;
+    padding:0;
+    margin-right: 0.2rem;
+}
+.card_details{
+    flex-direction: vertical;
+    justify-content: space-evenly;
+    text-align: left;
+    height: 100%;
+}
+h3{
+    margin-top: 0.2rem;
+    padding: 0;
+    color: Black;
+}
+
+p{
+    margin-top: 0.2rem;
+    padding: 0;
+    color: grey;
+}
+
+a{
+    color: grey;
+}

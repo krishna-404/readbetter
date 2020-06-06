@@ -27,8 +27,12 @@
                 <input name="book_name" type="text" maxlength="200" required placeholder="Book Name">
                 </label>
                 <label>
-                ISBN
-                <input name="ISBN" type="text" maxlength="100" required placeholder="ISBN">
+                ISBN-13:
+                <input name="ISBN13" type="text" maxlength="100" required placeholder="ISBN">
+                </label>
+                <label>
+                Book Desc:
+                <textarea name="book_desc" type="text" required rows="4" cols="40">A few lines about book here...</textarea>
                 </label>
                 <label>
                 Author:
@@ -40,7 +44,7 @@
                 </label>
                 <label>
                 Book Image:
-                <input name="book_image" type="file">
+                <input name="book_image" type="file" required>
                 </label>
                 <label>
                 Image Credits:
