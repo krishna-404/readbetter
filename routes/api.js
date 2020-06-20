@@ -46,6 +46,10 @@ function router(app) {
   app.route("/:twitter_id").get(displayController.displayLeader);
 
   app
+    .route("/admin/data-entry")
+    .get(displayController.dataEntry);
+
+  app
     .route("/leader_data/:twitter_id")
     .get(leaderController.leaderList)
     .post(upload.single("leader_image"), leaderController.newLeader);

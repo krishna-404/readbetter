@@ -1,6 +1,6 @@
 const express = require("express");
 
-const LeaderModel = require("../models/leader_model");
+const LeaderModel = require("../models/leaders_model");
 const BookModel = require("../models/books_model");
 
 const app = express();
@@ -103,6 +103,21 @@ function DisplayController() {
         });
     }
   };
+
+  this.dataEntry = async function(req, res){
+
+    let book = await BookModel.find({'leadersReco.twitter.id' : {$exists: false}}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
+    console.log(book);
+    if(book[0]){
+      book = book[0]
+      console.log(book, book.bookName);
+      res.render(
+        process.cwd() + "/views/admin/data-entry.ejs",
+        { data: book }
+      );
+      res.sendFile(`${process.cwd()}` + "/views/admin/data-entry.ejs");
+      } 
+  }
 }
 
 module.exports = DisplayController;

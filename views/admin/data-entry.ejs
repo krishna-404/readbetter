@@ -1,0 +1,115 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Data Entry for Read Better</title>
+        <link rel="stylesheet" href="..\views\admin\data_entry_style.css">
+        <script type="text/javascript" src="..\bundle.js"></script>
+        <!-- <script type="text/javascript" src="..\views\admin\data-entry.js"></script> -->
+
+    </head>
+    <body>
+        <header>
+            <h1>Data Entry for Read Better</h1>
+        </header>
+
+        <main>
+            <p>Check all items & approve</p>
+
+            <form id="newBookForm" enctype="multipart/form-data" method="post" action="/books_data/newBook" style="display:flex">
+                <div>
+                <input name="bookId" type="text" readonly value= "<%= data._id %>">
+                <label>
+                Book Name: <a href="https://amazon.in/s?k=<%= encodeURI(data.bookName)+`+by+`+encodeURI(data.bookAuthor[0])+`&i=stripbooks` %>" target="_blank">Amazon Link</a>
+                <input name="bookName" type="text" required value= "<%= data.bookName %>">
+                </label>
+                <label>
+                Author: (multiple seperated by comma)
+                <input name="bookAuthor" type="text" required placeholder="<%= data.bookAuthor.join(', ') %>">
+                </label>
+                <label>
+                Amazon Link <input type="button" name="isbnCodes" value="Get ISBN Codes" onclick = "getIsbnCodes()">
+                <input name="amazonLink" id="amazonLink" type="text" required>
+                </label>    
+                <label>
+                ISBN-13:
+                <input name="ISBN13" type="text" maxlength="100" required placeholder="ISBN10">
+                </label>
+                <label>
+                ISBN-10:
+                <input name="ISBN10" type="text" maxlength="100" required placeholder="ISBN10">
+                </label>
+                <label>
+                ASIN:
+                <input name="ASIN" type="text" maxlength="100" required placeholder="ASIN">
+                </label>
+                <label>
+                Book Desc:
+                <textarea name="book_desc" type="text" required rows="4" cols="40" placeholder="A few lines about book here..."></textarea>
+                </label>
+                <label>
+                Tags: (Comma Seperated)
+                <input name="tags" type="text" required placeholder="Fiction, Startups, Motivation">
+                </label>
+                <label>
+                Book Image:
+                <input name="book_image" type="file" required>
+                </label>
+                <label>
+                Book Story Link
+                <input name="booStoryLink" type="text">
+                </label>
+                </div>
+                <div style="margin-left: 2em">
+                <label>
+                Leader Name:
+                <input name="leaderName" type="text" required>
+                </label>
+                <label>
+                Leader Sector:
+                <input name="leaderSector" type="text" required>
+                </label>
+                <label>
+                Leader Bio:
+                <textarea name="leaderBio" type="text" rows="4" cols="40"></textarea>
+                </label>
+                <label>
+                Leader Image:
+                <input name="leaderImgPath" type="text">
+                </label>
+                <label>
+                Leader Story Link:
+                <input name="leaderStoryLink" type="text" rows="4" cols="40">
+                </label>
+                <label>
+                Leader Twitter ID:
+                <input name="twitter_id" type="text" maxlength="200" required placeholder="Twitter ID">
+                </label>
+                <label>
+                Twitter Followers: (in millions)
+                <input name="twitter_followers" type="text" maxlength="200" required placeholder="Twitter ID">
+                </label>
+                <label>
+                Where Recommended:
+                <input name="where_recommended" type="text" required placeholder="Where was it recommended?">
+                </label>
+                <label>
+                When Recommended:
+                <input name="when_recommended" type="date" >
+                </label>
+                <label>
+                Leaders Comments:
+                <textarea name="leaders_comment" type="text" required rows="4" cols="40" placeholder= "What are the leaders opinion of the book..."></textarea>
+                </label>
+                <button type="submit" id="submit-book">Add Entry</button>
+
+            </div>
+            </form>
+            
+        </main>
+    </body>
+</html>

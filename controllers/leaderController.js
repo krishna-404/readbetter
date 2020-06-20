@@ -1,5 +1,5 @@
-const LeaderModel = require("../models/leader_model");
-const BookModel = require("../models/books_model");
+const LeaderModel = require("../models/leaders_model_old");
+const BookModel = require("../models/books_model_old");
 
 function LeaderController() {
   this.leaderList = function(req, res) {

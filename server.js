@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+require('dotenv').config();
+
 
 var apiRoutes = require("./routes/api.js");
 
@@ -16,7 +18,7 @@ mongoose.connect(process.env.DB, {
   useCreateIndex: true,
   useUnifiedTopology: true
 });
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise; Not needed in Mongoose 5+
 let db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
