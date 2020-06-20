@@ -27,7 +27,7 @@
 						<h2>Read Better - Books Recommended by <%= data.leader_name %></h2>
 						<div class="row" id='book_cards'>
 							<% data.booksReco.forEach(function(dat){ %>
-								<a href="<%= dat.amazonLink %>"><article class="image-box">
+								<a href="<%= dat.amazonLink %>" target="_blank"><article class="image-box">
 									<img src="<%= dat.bookImgPath %>" alt="" class="images" />
 									<div class = "card_details">
 										<h3><%= dat.book_name %></h3>

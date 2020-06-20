@@ -37,7 +37,8 @@ function DisplayController() {
             { data: doc }
           );
         });
-    } else {
+    } 
+    else {
       LeaderModel.findOne(
         { "twitter.id": req.params.twitter_id },
         "-_id -__v -updated_on -updated_by -created_on -created_by"
@@ -67,6 +68,35 @@ function DisplayController() {
               if (err) return console.log(err);
               return null;
             });
+
+//           doc.booksReco.forEach(e => {
+//             e.alsoRecoBy = BookModel.findOne(
+//               {
+//                 $or: [
+//                   { ISBN13: e.ISBN13 },
+//                   {
+//                     $and: [
+//                       { book_name: e.book_name },
+//                       { book_author: e.author }
+//                     ]
+//                   }
+//                 ]
+//               },
+//               { leadersReco: 1 }
+//             )
+//               .lean()
+//               .exec((err, dat) => {
+//                 if(dat == undefined) return null;
+              
+//                 console.log('dat: ', dat);
+//                 const alsoReco = dat.map(lead => lead.leader_name);
+//                 console.log('alsoReco: ', alsoReco);
+//                 return alsoReco;
+                
+//               });
+//             console.log("e.alsoRecoBy: ", e.alsoRecoBy);
+//           });
+
           res.render(process.cwd() + "/views/display_leader/leader_view.ejs", {
             data: doc
           });

@@ -12,9 +12,11 @@ function LeaderController() {
           res.json(doc);
         }
       );
-    } else if (req.params.twitter_id == "newLeader") {
+    } 
+    else if (req.params.twitter_id == "newLeader") {
       res.sendFile(`${process.cwd()}` + "/views/admin/leader_data_entry.html");
-    } else {
+    } 
+    else {
       LeaderModel.findOne({ "twitter.id": req.params.twitter_id }, function(
         err,
         doc

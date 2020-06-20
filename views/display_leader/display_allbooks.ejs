@@ -32,7 +32,7 @@
 									<div class = "card_details">
 										<h3><%= dat.book_name %></h3>
 										<p><%= dat.book_author.join(', ') %></p>
-                    <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %><%= dat.twitter_id %> <% }); %></p>
+                    <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %> @<%= dat.twitter_id %> <% }); %></p>
 <!--               <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %><a href="/<%= dat.twitter_id %>" target="_blank">@<%= dat.twitter_id %></a> <% }); %></p>
 -->
 									</div>

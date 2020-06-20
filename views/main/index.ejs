@@ -1,60 +1,107 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Read Better</title>
-		<meta charset="utf-8" />
-		<meta name="Read Better" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" type="text/css" href="views\main\main_style.css" />
-	</head>
-	<body id="top">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Read Better - Know What the best minds are reading.</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link rel="stylesheet" type="text/css" href="views\main\style.css" />
+</head>
+<body>
 
-		<!-- Header -->
-			<header id="header">
-				<div class="inner">
-					<a href="#" class="image avatar"><img id= "readbetter_logo" src="images\readbetter_logo.png" alt="" /></a>
-					<h1><strong>Read Better</strong><br />
-					<br />
-					Know what the best minds are reading.<br />
-					</h1>
-				</div>
-			</header>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/"><img id="readbetter_logo" src="images\readbetter_logo.png"></a>
+		<button class="navbar-toggler" type="button"  data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/allBooks">All Books</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#footer">Footer</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
 
-		<!-- Main -->
-			<div id="main">
+<!--- Image Slider -->
 
-				<!-- Two -->
-					<section id="two">
-						<h2>Find the books read & recommended by the top leaders here</h2>
-						<div class="row" id='leader_cards'>
-							<% data.forEach(function(dat){ %>
-								<a href="/<%= dat.twitter.id %>"><article class="image-box">
-									<img src="<%= dat.images[0].path %>" alt="" class="images" />
-									<h3><%= dat.leader_name %></h3>
-									<p><%= dat.booksReco.length %> Books</p>
-								</article></a>
-							<% }); %>
-						</div>
-					</section>
-			</div>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<ul class="icons">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-					</ul>
-	<!--				<ul class="copyright">
-					</ul>
-	-->
-				</div>
-			</footer>
+<!--- Jumbotron -->
 
-		<!-- Scripts -->
-		<!-- <script src="assets\main\main_jquery.js"> </script> -->
-			
 
-	</body>
+<!--- Welcome Section -->
+<div class="container-fluid padding">
+	<div class="row welcome text-center">
+	<div class="col-12">
+		<h1 class="display-10">Read Better - Know what the best minds are reading.</h1>
+		<hr>
+		<div class="col-12">
+			<p class="lead">Find the books read & recommended by the top leaders here</p>
+		</div>
+	</div>
+	</div>
+</div>
+
+<!--- Three Column Section -->
+<!-- <div class="container-fluid padding"> -->
+	<div class="col-8" id='leader_cards'>
+		<% data.forEach(function(dat){ %>
+			<a id="cards_links" href="/<%= dat.twitter.id %>"><article class="image-box">
+				<img src="<%= dat.images[0].path %>" alt="" class="images" />
+				<h3 id="leader-name"><%= dat.leader_name %></h3>
+				<p><%= dat.booksReco.length %> Books</p>
+			</article></a>
+		<% }); %>
+	</div>
+	<hr class="my-4">
+<!-- </div> -->
+
+
+<!--- Two Column Section -->
+
+
+<!--- Fixed background -->
+
+
+<!--- Emoji Section -->
+
+  
+<!--- Meet the team -->
+
+
+<!--- Cards -->
+
+
+<!--- Two Column Section -->
+
+
+<!--- Connect -->
+<div class="container-fluid padding">
+	<div class="row text-center padding">
+		<div class="col-12">
+			<h2>Connect</h2>
+			<a href="#"><i class="fab fa-facebook"></i></a>
+			<a href="#"><i class="fab fa-twitter"></i></a>
+			<a href="#"><i class="fab fa-instagram"></i></a>
+			<a href="#"><i class="fab fa-youtube"></i></a>
+		</div>
+	</div>
+</div>
+
+<!--- Footer -->
+
+
+
+
+</body>
 </html>
