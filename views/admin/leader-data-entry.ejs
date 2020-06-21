@@ -19,7 +19,7 @@
         <main>
             <p>Check all items & approve</p>
 
-            <form id="newBookForm" enctype="multipart/form-data" method="post" action="/books_data/newBook" style="display:flex">
+            <form id="newBookForm" enctype="text/html" method="post" action="/leader_data/updateLeader">
                 <input name="leaderId" type="text" readonly value= "<%= data._id %>">
                 <label>
                 Leader Name:
@@ -34,7 +34,7 @@
                 <textarea name="leaderBio" id="leaderBio" type="text" rows="4" cols="60" oninput = textInput()><%= data.leaderBio %></textarea>
                 </label>
                 <br>
-                <div><p id="textDisp"><%= data.leaderBio %></p></div>
+                <div><p id="textDisp"><%- data.leaderBio %></p></div>
                 <br>
                 <label>
                 Leader Image:
@@ -47,6 +47,10 @@
                 <label>
                 Leader Twitter ID: <a href="https://twitter.com/search?q=<%= encodeURI(data.leaderName) %>&src=typed_query" target="_blank">Twitter Link</a>
                 <input name="twitter_id" type="text" maxlength="200" required placeholder="Twitter ID">
+                </label>
+                <label>
+                Leader Twitter Followers: (in millions)
+                <input name="twitter_followers" type="number" step = "0.001" maxlength="200" required placeholder="Twitter Followers">
                 </label>
                 <button type="submit" id="submit-book">Add Entry</button>
             </form>

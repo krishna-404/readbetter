@@ -3,7 +3,7 @@
 	<head>
 		<title>Read Better - Books Recommended by <%= data.leader_name %></title>
 		<meta charset="utf-8" />
-		<meta name="Read Better - Books Recommended by <%= data.leader_name %>" content="width=device-width, initial-scale=1" />
+		<meta name="Read Better - Books Recommended by <%= data.leaderName %>" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" type="text/css" href="views/display_leader/leader_view-style.css" />
 	</head>
 	<body id="top">
@@ -24,8 +24,8 @@
 
 				<!-- Two -->
 					<section id="two">
-						<h2>Read Better - Books Recommended by <%= data.leader_name %></h2>
-						<div class="row" id='book_cards'>
+						<h2>Read Better - Books Recommended by <%= data.leaderName %></h2>
+						<!-- <div class="row" id='book_cards'>
 							<% data.booksReco.forEach(function(dat){ %>
 								<a href="<%= dat.amazonLink %>" target="_blank"><article class="image-box">
 									<img src="<%= dat.bookImgPath %>" alt="" class="images" />
@@ -35,7 +35,7 @@
 									</div>
 								</article></a>
 							<% }); %>
-						</div>
+						</div> -->
 					</section>
 			</div>
 

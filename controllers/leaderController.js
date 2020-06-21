@@ -1,6 +1,8 @@
 const LeaderModel = require("../models/leaders_model_old");
 const BookModel = require("../models/books_model_old");
 
+// app.set("view engine", "ejs");
+
 function LeaderController() {
   this.leaderList = function(req, res) {
     if (req.params.twitter_id == "allLeaders") {
@@ -55,6 +57,43 @@ function LeaderController() {
       res.send("Leader created succesfuly");
     });
   };
+
+  this.updateLeader = async function(req,res){
+    
+    console.log(req.body);
+
+    let book = await BookModel.findOneAndUpdate({'leadersReco.leaderDbId': req.body.leaderId},{
+                                          $set : {
+                                            'leadersReco.$.twitterId': req.body.twitter_id
+                                          }
+                                        },
+                                        {returnOriginal: false}).lean();
+
+    let leader = await LeaderModel.findByIdAndUpdate(req.body.leaderId, {
+                $set: {
+                  leaderName: req.body.leaderName,
+                  leaderSector: req.body.leaderSector,
+                  leaderBio: req.body.leaderBio,
+                  leaderImgPath: req.body.leaderImgPath,
+                  leaderStoryLink: req.body.leaderStoryLink,
+                  'twitter.id': req.body.twitter_id,
+                  'twitter.followers': req.body.twitter_followers,
+                  sortCount: req.body.twitter_followers,
+                  createdBy: req.connection.remoteAddress,
+                  updatedBy:req.connection.remoteAddress
+                }
+              },
+              {returnOriginal: false}).lean();
+
+    console.log(leader);
+
+    res.json(leader);
+    // res.render(
+    //   process.cwd() + "/" + req.body.twitter_id,
+    //   { data: leader }
+    // );
+  }
 }
+
 
 module.exports = LeaderController;

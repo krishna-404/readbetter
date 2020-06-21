@@ -42,14 +42,14 @@ function DisplayController() {
     else {
       LeaderModel.findOne(
         { "twitter.id": req.params.twitter_id },
-        "-_id -__v -updated_on -updated_by -created_on -created_by"
+        "-_id -__v -updatedAt -updatedBy -createdAt -createdBy"
       )
         .lean()
         .exec((err, doc) => {
           if (err) return res.send(err);
           if (doc == null) return "Some Error";
-          const clickByLength = doc.click_by.length
-            ? doc.click_by.length / 200
+          const clickByLength = doc.clickBy.length
+            ? doc.clickBy.length / 200
             : 0;
           const sort_count = (clickByLength + 1) * doc.twitter.followers;
           LeaderModel.findOneAndUpdate(
@@ -58,7 +58,7 @@ function DisplayController() {
               $set: {
                 sort_count: sort_count
               },
-              $push: {
+              $addToSet: {
                 click_by: req.connection.remoteAddress
               }
             },
@@ -113,7 +113,7 @@ function DisplayController() {
     if(bookId){
       book = await BookModel.findById({_id: bookId}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
     } else {
-      book = await BookModel.findOne({createdBy : {exists: false}}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
+      book = await BookModel.findOne({createdBy : {$exists: false}}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
     }
     // console.log(book);
 
@@ -135,9 +135,9 @@ function DisplayController() {
     let leaderId = req.query.leaderId
     
     if(leaderId){
-      leader = await LeaderModel.findById(leaderId).sort('-sortCount').lean.catch(err => res.send("error: "+ err));
+      leader = await LeaderModel.findById(leaderId).sort('-sortCount').lean().catch(err => res.send("error: "+ err));
     } else {
-      leader = await LeaderModel.findOne({createdBy : {exists: false}}).sort('-sortCount').lean.catch(err => res.send("error: "+ err));
+      leader = await LeaderModel.findOne({createdBy : {$exists: false}}).sort('-sortCount').lean().catch(err => res.send("error: "+ err));
     }
 
     if(leader){

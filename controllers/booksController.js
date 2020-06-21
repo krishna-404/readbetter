@@ -225,8 +225,7 @@ function BooksController() {
                                   updatedBy: req.connection.remoteAddress
                                 },
                                 $addToSet: {
-                                  bookTags: bookTags,
-                                  clickBy: 1
+                                  bookTags: bookTags
                                 }
                               },
                                 {returnOriginal: false}
