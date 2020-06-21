@@ -22,7 +22,9 @@ const bookSchema = new Schema({
       whenRecommended: { type: Date },
       leaderComment: {type: String, trim: true}
     }
-  ]
+  ],
+  createdBy: {type: String, trim: true},
+  updatedBy: {type: String, trim: true}
 },{
   timestamps: true,
   collection: 'books'

@@ -50,9 +50,14 @@ function router(app) {
     .get(displayController.bookDataEntry);
 
   app
+    .route("/admin/leader-data-entry")
+    .get(displayController.leaderDataEntry);
+
+  app
     .route("/leader_data/:twitter_id")
     .get(leaderController.leaderList)
-    .post(upload.single("leader_image"), leaderController.newLeader);
+    .put(upload.single("leader_image"), leaderController.newLeader)
+    .post(leaderController.updateLeader);
 
   app
     .route("/books_data/:book_id")

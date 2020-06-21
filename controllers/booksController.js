@@ -220,7 +220,9 @@ function BooksController() {
                                   ASIN: ASIN,
                                   bookDesc: req.body.bookDesc,
                                   bookImgPath: bookImgPath,
-                                  amazonLink: req.body.amazonLink
+                                  amazonLink: req.body.amazonLink,
+                                  createdBy: req.connection.remoteAddress,
+                                  updatedBy: req.connection.remoteAddress
                                 },
                                 $addToSet: {
                                   bookTags: bookTags,

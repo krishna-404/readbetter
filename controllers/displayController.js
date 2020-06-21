@@ -113,7 +113,7 @@ function DisplayController() {
     if(bookId){
       book = await BookModel.findById({_id: bookId}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
     } else {
-      book = await BookModel.findOne({'clickBy' : []}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
+      book = await BookModel.findOne({createdBy : {exists: false}}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
     }
     // console.log(book);
 
@@ -126,6 +126,27 @@ function DisplayController() {
       );
     } else {
       res.send("Book not uploaded");
+    }
+  }
+
+  this.leaderDataEntry = async function(req,res){
+
+    let leader;
+    let leaderId = req.query.leaderId
+    
+    if(leaderId){
+      leader = await LeaderModel.findById(leaderId).sort('-sortCount').lean.catch(err => res.send("error: "+ err));
+    } else {
+      leader = await LeaderModel.findOne({createdBy : {exists: false}}).sort('-sortCount').lean.catch(err => res.send("error: "+ err));
+    }
+
+    if(leader){
+      res.render(
+        process.cwd() + "/views/admin/leader-data-entry.ejs",
+        { data: leader }
+      )
+    } else {
+      res.send("no leaders available")
     }
   }
 }

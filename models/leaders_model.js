@@ -15,7 +15,9 @@ const leaderSchema = new Schema({
               ASIN: {type: String, trim: true}
             }],
   clickBy: [String],
-  sortCount: {type: Number}
+  sortCount: {type: Number},
+  createdBy: {type: String, trim: true},
+  updatedBy: {type: String, trim: true}
 },{
   timestamps: true,
   collection: 'leaders'
