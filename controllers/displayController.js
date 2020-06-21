@@ -9,16 +9,17 @@ app.set("view engine", "ejs");
 
 function DisplayController() {
   this.displayHome = async function(req, res) {
-    LeaderModel.find(
-      {},
-      "-_id -__v -updated_on -updated_by -created_on -created_by"
-    )
-      .sort("-sort_count")
-      .lean()
-      .exec((err, doc) => {
-        if (err) return res.send(err);
-        res.render(process.cwd() + "/views/main/index.ejs", { data: doc });
-      });
+    // LeaderModel.find(
+    //   {},
+    //   "-_id -__v -updated_on -updated_by -created_on -created_by"
+    // )
+    //   .sort("-sort_count")
+    //   .lean()
+    //   .exec((err, doc) => {
+    //     if (err) return res.send(err);
+    //     res.render(process.cwd() + "/views/main/index.ejs", { data: doc });
+    //   });
+    res.render(process.cwd() + "/views/main/index.ejs");
   };
 
   this.displayLeader = function(req, res) {
