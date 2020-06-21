@@ -7,7 +7,7 @@ const leaderSchema = new Schema({
   leaderBio: { type: String, trim: true },
   leaderImgPath: { type: String, trim:true},
   leaderStoryLink: {type: String, trim:true},
-  twitter: { id: { type: String, trim: true }, followers: { type: Number } },
+  twitter: { id: { type: String, trim: true, unique: true }, followers: { type: Number } },
   booksReco: [{
               id: {type: String, trim: true},
               ISBN13: {type: String, trim: true},
