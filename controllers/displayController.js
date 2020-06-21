@@ -104,19 +104,17 @@ function DisplayController() {
     }
   };
 
-  this.dataEntry = async function(req, res){
+  this.bookDataEntry = async function(req, res){
 
-    let book = await BookModel.find({'leadersReco.twitter.id' : {$exists: false}}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
-    console.log(book);
-    if(book[0]){
-      book = book[0]
-      console.log(book, book.bookName);
+    let book = await BookModel.findOne({'clickBy' : []}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
+    // console.log(book);
+    if(book){
+      // console.log(book, book.bookName);
       res.render(
-        process.cwd() + "/views/admin/data-entry.ejs",
+        process.cwd() + "/views/admin/book-data-entry.ejs",
         { data: book }
       );
-      res.sendFile(`${process.cwd()}` + "/views/admin/data-entry.ejs");
-      } 
+    } 
   }
 }
 

@@ -46,8 +46,8 @@ function router(app) {
   app.route("/:twitter_id").get(displayController.displayLeader);
 
   app
-    .route("/admin/data-entry")
-    .get(displayController.dataEntry);
+    .route("/admin/book-data-entry")
+    .get(displayController.bookDataEntry);
 
   app
     .route("/leader_data/:twitter_id")
@@ -57,7 +57,7 @@ function router(app) {
   app
     .route("/books_data/:book_id")
     .get(booksController.booksList)
-    .post(upload.single("book_image"), booksController.newBook);
+    .post(upload.single("book_image"), booksController.updateBook);
 }
 
 module.exports = router;

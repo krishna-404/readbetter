@@ -1,7 +1,11 @@
-const got = require('got');
-const cheerio = require('cheerio');
+// const got = require('got');
+// const cheerio = require('cheerio');
 
 console.log('js loaded');
+
+function textInput(){
+    document.getElementById("textDisp").innerHTML = document.getElementById("bookDesc").value;
+}
 
 function getIsbnCodes(){
     let uri = document.getElementById("amazonLink").value;

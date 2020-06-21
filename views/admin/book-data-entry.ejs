@@ -1,0 +1,53 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Data Entry for Read Better</title>
+        <link rel="stylesheet" href="..\views\admin\data_entry_style.css">
+        <script type="text/javascript" src="..\views\admin\book-data-entry.js"></script>
+
+    </head>
+    <body>
+        <header>
+            <h1>Data Entry for Read Better</h1>
+        </header>
+
+        <main>
+            <p>Check all items & approve</p>
+
+            <form id="newBookForm" enctype="multipart/form-data" method="post" action="/books_data/updateBook" >
+                <input name="bookId" type="text" readonly value= "<%= data._id %>">
+                <label>
+                Book Name: <a href="https://amazon.in/s?k=<%= encodeURI(data.bookName)+`+by+`+encodeURI(data.bookAuthor[0])+`&i=stripbooks` %>" target="_blank">Amazon Link</a>
+                <input name="bookName" type="text" required value= "<%= data.bookName %>">
+                </label>
+                <label>
+                Author: (multiple seperated by comma)
+                <input name="bookAuthor" type="text" required value="<%= data.bookAuthor.join(', ') %>">
+                </label>
+                <label>
+                Amazon Link
+                <input name="amazonLink" id="amazonLink" type="text" required>
+                </label>    
+                <label>
+                Book Desc:
+                <textarea name="bookDesc" id="bookDesc" type="text" required rows="4" cols="60" oninput = textInput()><%= data.bookDesc %></textarea>
+                </label>
+                <br>
+                <div><p id="textDisp"><%- data.bookDesc %></p></div>
+                <br>
+                <label>
+                Book Story Link
+                <input name="bookStoryLink" type="text" value="<%= data.bookStoryLink %>">
+                </label>
+                <button type="submit" id="submit-book">Update Book</button>
+            </div>
+            </form>
+            
+        </main>
+    </body>
+</html>

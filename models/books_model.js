@@ -13,7 +13,7 @@ const bookSchema = new Schema({
   amazonLink: { type: String, trim: true },
   bookStoryLink: {type: String, trim: true},
   clickBy: [String],
-  recoCount: {type: String},
+  recoCount: {type: Number},
   leadersReco: [
     {
       leaderDbId: {type: String, trim: true},

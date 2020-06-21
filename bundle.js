@@ -19729,7 +19729,7 @@ module.exports.assert = exports.assert;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const defer_to_connect_1 = require("defer-to-connect");
-const nodejsMajorVersion = Number(process.versions.node.split('.')[0]);
+const nodejsMajorVersion = 12;
 const timer = (request) => {
     const timings = {
         start: Date.now(),
