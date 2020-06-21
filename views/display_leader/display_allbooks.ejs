@@ -4,14 +4,14 @@
 		<title>Read Better - All books on portal</title>
 		<meta charset="utf-8" />
 		<meta name="Read Better - All the books on the portal" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" type="text/css" href="views/display_leader/display_allbooks-style.css" />
+		<link rel="stylesheet" type="text/css" href="../views/display_leader/display_allbooks-style.css" />
 	</head>
 	<body id="top">
 
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="#" class="image avatar"><img id= "readbetter_logo" src="images\readbetter_logo.png" alt="" /></a>
+					<a href="#" class="image avatar"><img id= "readbetter_logo" src="..\images\readbetter_logo.png" alt="" /></a>
 					<h1><strong>Read Better</strong><br />
 					<br />
 					Know what the best minds are reading.<br />
@@ -28,13 +28,20 @@
 						<div class="row" id='book_cards'>
 							<% data.forEach(function(dat){ %>
 								<a href="<%= dat.amazonLink %>" target="_blank"><article class="image-box">
-									<img src="<%= dat.images[0].path %>" alt="" class="images" />
+									<img src="<%= dat.bookImgPath %>" alt="" class="images" />
 									<div class = "card_details">
-										<h3><%= dat.book_name %></h3>
-										<p><%= dat.book_author.join(', ') %></p>
-                    <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %> @<%= dat.twitter_id %> <% }); %></p>
+										<h3><%= dat.bookName %></h3>
+										<p><%= dat.bookAuthor.join(', ') %></p>
+										<p><strong>ISBN-13:</strong> <%= dat.ISBN13 %></p>
+										<p><strong>ISBN-10:</strong> <%= dat.ISBN10 %></p>
+										<p><strong>ASIN:</strong> <%= dat.ASIN %></p>
+										<p><strong>Book Description:</strong> <%- dat.bookDesc %></p>
+										<p><strong>Tags:</strong> <%= dat.bookTags %></p>
+                    					<p><strong>Recommended by:</strong> <% dat.leadersReco.forEach(function(dat){ %> @<%= dat.twitterId %> <% }); %></p>
 <!--               <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %><a href="/<%= dat.twitter_id %>" target="_blank">@<%= dat.twitter_id %></a> <% }); %></p>
 -->
+									<button onclick="location.href=`/admin/book-data-entry?bookId=<%= dat._id %>`">Revise Entry</button>
+									<button onclick="location.href=`/admin/book-data-entry`">Next Entry</button>
 									</div>
 								</article></a>
 							<% }); %>

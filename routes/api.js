@@ -57,7 +57,9 @@ function router(app) {
   app
     .route("/books_data/:book_id")
     .get(booksController.booksList)
-    .post(upload.single("book_image"), booksController.updateBook);
+    .put(upload.single("book_image"), booksController.newBook)
+    .post(booksController.updateBook);
+
 }
 
 module.exports = router;

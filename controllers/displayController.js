@@ -107,15 +107,26 @@ function DisplayController() {
 
   this.bookDataEntry = async function(req, res){
 
-    let book = await BookModel.findOne({'clickBy' : []}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
+    let book;
+    let bookId = req.query.bookId
+
+    if(bookId){
+      book = await BookModel.findById({_id: bookId}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
+    } else {
+      book = await BookModel.findOne({'clickBy' : []}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
+    }
     // console.log(book);
+
+    if (!book.amazonLink.match(/^https\:\/\/www\.amazon\.in/)) book.amazonLink = "";
     if(book){
       // console.log(book, book.bookName);
       res.render(
         process.cwd() + "/views/admin/book-data-entry.ejs",
         { data: book }
       );
-    } 
+    } else {
+      res.send("Book not uploaded");
+    }
   }
 }
 
