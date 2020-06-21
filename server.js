@@ -12,7 +12,7 @@ const app = express();
 app.use(helmet());
 
 //Database mongoose  connection
-mongoose.connect(process.env.DB, {
+mongoose.connect(process.env.APPSETTING_DB, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
