@@ -11,18 +11,16 @@ const app = express();
 
 app.use(helmet());
 
-console.log(process.env);
-
-//Database mongoose  connection
-// mongoose.connect(process.env.APPSETTING_DB, {
-//   useNewUrlParser: true,
-//   useFindAndModify: false,
-//   useCreateIndex: true,
-//   useUnifiedTopology: true
-// });
-// // mongoose.Promise = global.Promise; Not needed in Mongoose 5+
-// let db = mongoose.connection;
-// db.on("error", console.error.bind(console, "MongoDB connection error:"));
+Database mongoose  connection
+mongoose.connect(process.env.CUSTOMCONNSTR_DB, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+});
+// mongoose.Promise = global.Promise; Not needed in Mongoose 5+
+let db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // to determine the directories for other files
 app.use(express.static(__dirname));
@@ -31,8 +29,8 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => res.send(process.env));
-// apiRoutes(app);
+// app.get('/', (req, res) => res.send(process.env));
+apiRoutes(app);
 
 app.use(function(req, res, next) {
     res.status(404)
