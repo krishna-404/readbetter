@@ -201,6 +201,15 @@ function BooksController() {
             console.error('scrapeBooksList err: ', err);
         })
     }
+
+    let leaderUpdate = await LeaderModel.findAndUpdate({'booksReco.id' : req.body.bookId},{
+                                        $set: {
+                                          'booksReco.$.ISBN13': ISBN13,
+                                          'booksReco.$.ISBN10': ISBN10,
+                                          'booksReco.$.ASIN': ASIN
+                                        }},
+                                        {returnOriginal: false}).lean();
+
     let bookUpdate = await BookModel.findByIdAndUpdate(
                                 {_id: req.body.bookId}, {
                                   $set: {

@@ -8,7 +8,12 @@ const leaderSchema = new Schema({
   leaderImgPath: { type: String, trim:true},
   leaderStoryLink: {type: String, trim:true},
   twitter: { id: { type: String, trim: true }, followers: { type: Number } },
-  booksRecoId: [String],
+  booksReco: [{
+              id: {type: String, trim: true},
+              ISBN13: {type: String, trim: true},
+              ISBN10: {type: String, trim: true},
+              ASIN: {type: String, trim: true}
+            }],
   clickBy: [String],
   sortCount: {type: Number}
 },{
