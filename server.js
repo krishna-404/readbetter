@@ -11,7 +11,7 @@ const app = express();
 
 app.use(helmet());
 
-Database mongoose  connection
+// Database mongoose  connection
 mongoose.connect(process.env.CUSTOMCONNSTR_DB, {
   useNewUrlParser: true,
   useFindAndModify: false,
