@@ -46,11 +46,11 @@
                 </label>
                 <label>
                 Leader Twitter ID: <a href="https://twitter.com/search?q=<%= encodeURI(data.leaderName) %>&src=typed_query" target="_blank">Twitter Link</a>
-                <input name="twitter_id" type="text" maxlength="200" required placeholder="Twitter ID">
+                <input name="twitter_id" type="text" maxlength="200" required value="<%= data.twitter.id %>">
                 </label>
                 <label>
                 Leader Twitter Followers: (in millions)
-                <input name="twitter_followers" type="number" step = "0.001" maxlength="200" required placeholder="Twitter Followers">
+                <input name="twitter_followers" type="number" step = "0.001" maxlength="200" required value="<%= data.twitter.followers %>">
                 </label>
                 <button type="submit" id="submit-book">Add Entry</button>
             </form>
