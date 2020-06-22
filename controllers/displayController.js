@@ -139,7 +139,7 @@ function DisplayController() {
     } else {
       leader = await LeaderModel.findOne({createdBy : {$exists: false}}).sort('-sortCount').lean().catch(err => res.send("error: "+ err));
     }
-
+    console.log(leader);
     if(leader){
       res.render(
         process.cwd() + "/views/admin/leader-data-entry.ejs",

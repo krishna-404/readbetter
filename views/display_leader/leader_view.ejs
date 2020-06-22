@@ -1,43 +1,60 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Read Better - Books Recommended by <%= data.leader_name %></title>
+		<title>Read Better - Books Recommended by <%= data.leader.leader_name %></title>
 		<meta charset="utf-8" />
-		<meta name="Read Better - Books Recommended by <%= data.leaderName %>" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" type="text/css" href="views/display_leader/leader_view-style.css" />
+		<meta name="Read Better - Books Recommended by <%= data.leader.leaderName %>" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="../views/display_leader/leader_view-style.css" />
 	</head>
 	<body id="top">
 
 		<!-- Header -->
-			<header id="header">
+			<nav id="header">
 				<div class="inner">
-					<a href="#" class="image avatar"><img id= "readbetter_logo" src="images\readbetter_logo.png" alt="" /></a>
-					<h1><strong>Read Better</strong><br />
-					<br />
-					Know what the best minds are reading.<br />
-					</h1>
+					<a href="#" class="image avatar"><img id= "readbetter_logo" src="..\images\readbetter_logo.png" alt=""></a>
+					<h1><strong>Read Better</strong></h1>
 				</div>
-			</header>
+			</nav>
 
 		<!-- Main -->
-			<div id="main">
+			<main id="main">
 
-				<!-- Two -->
-					<section id="two">
-						<h2>Read Better - Books Recommended by <%= data.leaderName %></h2>
-						<!-- <div class="row" id='book_cards'>
-							<% data.booksReco.forEach(function(dat){ %>
-								<a href="<%= dat.amazonLink %>" target="_blank"><article class="image-box">
-									<img src="<%= dat.bookImgPath %>" alt="" class="images" />
-									<div class = "card_details">
-										<h3><%= dat.book_name %></h3>
-										<p><%= dat.author.join(', ') %></p>
-									</div>
-								</article></a>
-							<% }); %>
-						</div> -->
-					</section>
+				<header><h1>Read Better - Books Recommended by <%= data.leader.leaderName %></h1></header>
+				<div id="content">
+				<section id="leader-box">
+					<div id="leader-img-box">
+						<img src="<%= data.leader.leaderImgPath %>" alt="Picture of <%= data.leader.leaderName %> from the field of <%= data.leader.leaderSector %> ">
+					</div>
+					<h2><%= data.leader.leaderName %></h2>
+					<h3><%= data.leader.leaderSector %></h3>
+					<br>
+					<p><%- data.leader.leaderBio %></p>
+					<button onclick="location.href=`/admin/leader-data-entry?leaderId=<%= data.leader._id %>`">Revise Entry</button>
+					<button onclick="location.href=`/admin/leader-data-entry`">Next Entry</button>
+				</section>
+				<section id="books-reco-box">
+					<% data.books.forEach(function(dat){ %>
+					<a href="<%= dat.amazonLink %>" target="_blank">
+					<div class="book-box" id='book-box'>
+							<div class="book-image-box">
+								<img src="<%= dat.bookImgPath %>" alt="Picture of the book name <%= dat.bookName %>" class="images">
+							</div>
+							<div class = "book-details">
+								<h4><%= dat.bookName %></h4>
+								<p>by <%= dat.bookAuthor.join(', ') %></p>
+								<br>
+								<h4><%= dat.leadersReco[0].leaderComment %></h4>
+								<p><%= dat.leadersReco[0].whereRecommended %></p>
+								<br>
+								<p>Tags: <%= dat.bookTags.join(", ") %></p>
+								<p>Recommended by <%= dat.recoCount %> leader(s)</p>
+							</div>
+					</div>
+					</a>
+					<% }); %>
+				</section>
 			</div>
+			</main>
 
 		<!-- Footer -->
 			<footer id="footer">

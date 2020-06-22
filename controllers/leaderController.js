@@ -1,5 +1,5 @@
-const LeaderModel = require("../models/leaders_model_old");
-const BookModel = require("../models/books_model_old");
+const LeaderModel = require("../models/leaders_model");
+const BookModel = require("../models/books_model");
 
 // app.set("view engine", "ejs");
 
@@ -60,15 +60,23 @@ function LeaderController() {
 
   this.updateLeader = async function(req,res){
     
-    console.log(req.body);
+    // console.log(req.body);
+    let ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 
+              req.connection.remoteAddress || 
+              req.socket.remoteAddress || 
+              req.connection.socket.remoteAddress;
 
-    let book = await BookModel.update({'leadersReco.leaderDbId': req.body.leaderId},{
+    await BookModel.updateMany({'leadersReco.leaderDbId': req.body.leaderId},{
                                           $set : {
-                                            'leadersReco.$.twitterId': req.body.twitter_id
+                                            'leadersReco.$.twitterId': req.body.twitter_id.toLowerCase()
                                           }
-                                        },
-                                        {returnOriginal: false,
-                                        multi: true}).lean();
+                                        });
+
+    let books = await BookModel.find({'leadersReco.leaderDbId': req.body.leaderId}, 
+                                    'bookName bookAuthor ISBN13 ISBN10 ASIN bookTags bookImgPath amazonLink recoCount leadersReco.$')
+                                    .sort('-recoCount').lean();
+      // {'leadersReco.$' : 1, _id: 0}
+    console.log("book: ", books);
 
     let leader = await LeaderModel.findByIdAndUpdate(req.body.leaderId, {
                 $set: {
@@ -77,22 +85,28 @@ function LeaderController() {
                   leaderBio: req.body.leaderBio,
                   leaderImgPath: req.body.leaderImgPath,
                   leaderStoryLink: req.body.leaderStoryLink,
-                  'twitter.id': req.body.twitter_id,
+                  'twitter.id': req.body.twitter_id.toLowerCase(),
                   'twitter.followers': req.body.twitter_followers,
                   sortCount: req.body.twitter_followers,
-                  createdBy: req.connection.remoteAddress,
-                  updatedBy:req.connection.remoteAddress
+                  createdBy: ip,
+                  updatedBy: ip
                 }
               },
               {returnOriginal: false}).lean();
 
-    console.log(leader);
+    // console.log(leader);
 
-    res.json(leader);
-    // res.render(
-    //   process.cwd() + "/" + req.body.twitter_id,
-    //   { data: leader }
-    // );
+    if(leader.booksReco.length != books.length){
+      console.log("Book Count mismatch", leader);
+    }
+
+    let data = {leader, books};
+    console.log(data);
+
+    res.render(
+      process.cwd() + "/views/display_leader/leader_view.ejs",
+      { data: data }
+    );
   }
 }
 
