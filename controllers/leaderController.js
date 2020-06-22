@@ -62,12 +62,13 @@ function LeaderController() {
     
     console.log(req.body);
 
-    let book = await BookModel.findOneAndUpdate({'leadersReco.leaderDbId': req.body.leaderId},{
+    let book = await BookModel.update({'leadersReco.leaderDbId': req.body.leaderId},{
                                           $set : {
                                             'leadersReco.$.twitterId': req.body.twitter_id
                                           }
                                         },
-                                        {returnOriginal: false}).lean();
+                                        {returnOriginal: false,
+                                        multi: true}).lean();
 
     let leader = await LeaderModel.findByIdAndUpdate(req.body.leaderId, {
                 $set: {

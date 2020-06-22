@@ -202,13 +202,14 @@ function BooksController() {
         })
     }
 
-    let leaderUpdate = await LeaderModel.findAndUpdate({'booksReco.id' : req.body.bookId},{
+    let leaderUpdate = await LeaderModel.update({'booksReco.id' : req.body.bookId},{
                                         $set: {
                                           'booksReco.$.ISBN13': ISBN13,
                                           'booksReco.$.ISBN10': ISBN10,
                                           'booksReco.$.ASIN': ASIN
                                         }},
-                                        {returnOriginal: false}).lean();
+                                        {returnOriginal: false,
+                                        multi: true}).lean();
 
     let bookUpdate = await BookModel.findByIdAndUpdate(
                                 {_id: req.body.bookId}, {
