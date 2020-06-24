@@ -87,7 +87,7 @@
   <!-- Place favicon.ico in the root directory -->
 
   <link rel="stylesheet" href="/normalize/normalize.css">
-  <link rel="stylesheet" href="/views/disp-allbooks/disp-allbooks-style.css">
+  <link rel="stylesheet" href="/views/disp-leader/disp-leader-style.css">
 
   <meta name="theme-color" content="#fafafa">
 </head>
@@ -122,34 +122,47 @@
   </nav>
 
   <header id=Home>
-    <h1>Read Better - Here are the books recommended by the leaders, CEOs, Philosphers & All.</h1>
+    <h1>Read Better - Here are the books recommended by <%= data.leader.leaderName %></h1>
     <br>
-    <h4>Here is the list of books recommended along with complete details.</h4>
+    <h4>Here is the list of books recommended by <%= data.leader.leaderName %> along with complete details.</h4>
   </header>
       <main>
-        
-          <% data.forEach(function(dat){ %>
-          <a href="<%= dat.amazonLink %>" target="_blank">
-          <article>
-              <img async src="<%= dat.bookImgPath %>" alt="Cover Image of Book Named <%= dat.bookName %> recommended by <%= dat.recoCount %> Leader(s)" />
-              <div class = "card_details">
-                <h3><%= dat.bookName %></h3>
-                <p>by <%= dat.bookAuthor.join(', ') %></p>
-                <p><strong>Book Description:</strong> <%- dat.bookDesc %></p>
-                <p><strong>Tags:</strong> <%= dat.bookTags %></p>
-                <p><strong>Recommended by:</strong> <% dat.leadersReco.forEach(function(dat){ %> @<%= dat.twitterId %> <% }); %></p>
-<!--               <p>Recommended by: <% dat.leadersReco.forEach(function(dat){ %><a href="/<%= dat.twitter_id %>" target="_blank">@<%= dat.twitter_id %></a> <% }); %></p>
--->
-              </div>
-        </article>
-        </a>
-        <% }); %>
+        <section id="leader-box">
+					<div id="leader-img-box">
+						<img src="<%= data.leader.leaderImgPath %>" alt="Picture of <%= data.leader.leaderName %> from the field of <%= data.leader.leaderSector %> ">
+					</div>
+					<h2><%= data.leader.leaderName %></h2>
+					<h3><%= data.leader.leaderSector %></h3>
+					<br>
+					<p><%- data.leader.leaderBio %></p>
+				</section>
+				<section id="books-reco-box">
+					<% data.books.forEach(function(dat){ %>
+					<a href="<%= dat.amazonLink %>" target="_blank">
+					<div class="book-box" id='book-box'>
+							<div class="book-image-box">
+								<img src="<%= dat.bookImgPath %>" alt="Picture of the book name <%= dat.bookName %>" class="images">
+							</div>
+							<div class = "book-details">
+								<h4><%= dat.bookName %></h4>
+								<p>by <%= dat.bookAuthor.join(', ') %></p>
+								<br>
+								<h4><%= dat.leadersReco[0].leaderComment %></h4>
+								<p><%= dat.leadersReco[0].whereRecommended %></p>
+								<br>
+								<p>Tags: <%= dat.bookTags.join(", ") %></p>
+								<p>Recommended by <%= dat.recoCount %> leader(s)</p>
+							</div>
+					</div>
+					</a>
+					<% }); %>
+				</section>
       </main>
 
       <!-- Add your site or application content here -->
   <script src="/normalize/vendor/modernizr-3.11.2.min.js"></script>
   <script src="/normalize/plugins.js"></script>
-  <script src="/views/disp-allbooks/disp-allbooks-js.js"></script>
+  <script src="/views/disp-leader/disp-leader-js.js"></script>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
