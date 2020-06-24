@@ -1,3 +1,5 @@
+const LeaderModel = require("../models/leaders_model");
+const BookModel = require("../models/books_model");
 
 function adminController() {
     this.bookDataEntry = async function(req, res){
@@ -49,7 +51,9 @@ function adminController() {
     }
 
     this.updatedBook = async function(req, res) {
-
+        const got = require('got');
+        const cheerio = require('cheerio');
+      
 
         let ISBN10="", ISBN13="", ASIN="", bookTags = [], bookImgPath;
     
