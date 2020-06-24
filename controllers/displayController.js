@@ -33,7 +33,7 @@ function DisplayController() {
         "-_id -__v -updatedAt -updatedBy -createdAt -createdBy"
       )
         .sort("-recoCount")
-        .limit(10)
+        .limit(50)
         .lean()
         .exec((err, doc) => {
           console.log(doc);
