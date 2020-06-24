@@ -61,7 +61,7 @@ function router(app) {
 
   app
     .route("/admin/updated-leader")
-    .post(adminController.updatedleader);    
+    .post(adminController.updatedLeader);
 
   app
     .route("/leader_data/:twitter_id")
