@@ -167,12 +167,11 @@ main{
   border: 1px solid #c4c4c4;
   border-radius: 5px;
   overflow: auto;
-  padding: 1rem;
   text-align: center;
-  height: 18rem;
   display: inline-block;
-  overflow: auto;
+  height: 18rem;
   margin: 1em;
+  padding: 1rem;
 }
 
 .leader_card:hover{

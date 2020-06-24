@@ -22,26 +22,30 @@ function DisplayController() {
       });
   };
 
-  this.displayLeader = function(req, res) {
-    if (req.params.twitter_id.toLowerCase() == "admin") {
+  this.displayLeader = async function(req, res) {
+    let inputId = req.params.twitter_id.toLowerCase();
+
+    if ( inputId == "admin") {
       res.sendFile(process.cwd() + "/views/admin/admin.html");
-    } else if (req.params.twitter_id.toLowerCase() == "allbooks") {
-      BookModel.find(
+    } else if (inputId == "books") {
+      let book =  await BookModel.find(
         {},
-        "-_id -__v -updated_on -updated_by -created_on -created_by"
+        "-_id -__v -updatedAt -updatedBy -createdAt -createdBy"
       )
-        .sort("-reco_count")
+        .sort("-recoCount")
+        .limit(10)
         .lean()
         .exec((err, doc) => {
+          console.log(doc);
           res.render(
-            process.cwd() + "/views/display_leader/display_allbooks.ejs",
+            process.cwd() + "/views/disp-allbooks/disp-allbooks.ejs",
             { data: doc }
           );
         });
     } 
     else {
       LeaderModel.findOne(
-        { "twitter.id": req.params.twitter_id },
+        { "twitter.id": inputId },
         "-_id -__v -updatedAt -updatedBy -createdAt -createdBy"
       )
         .lean()
