@@ -1,0 +1,212 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-XXXXX-Y');
+  </script>
+
+  <title>Read Better - Books recommended by top Leaders, CEOs, Philosphers & All</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="Software services Company, Mobile App Development, Software Development, ERP Software" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name= "robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://readbetter.in">
+  <meta name="msvalidate.01" content=""> <!--Bing site verification -->
+  <meta name="google-site-verification" content="">
+  <meta property="fb:admins" content="0" >  <!-- enter your numeric Facebook id number -->
+
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:site_name" content="Read Better">
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:description" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:url" content="">
+  <meta property="og:image:secure_url" content="">
+  <meta property="og:image:width" content="140">
+  <meta property="og:image:height" content="140"/>
+  <meta property="og:updated_time" content="2020-06-24T21:25:00+05:30">
+
+  <!-- Google+ / Schema.org -->
+  <meta itemprop="name" content=""/>
+  <meta itemprop="headline" content=""/>
+  <meta itemprop="description" content=""/>
+  <meta itemprop="image" content=""/>
+  <meta itemprop="publisher" content=""/> <!-- To solve: The attribute publisher.itemtype has an invalid value-->
+  <meta itemprop="image" content="">
+  <meta itemprop="datePublished" content="2020-06-24">
+  <meta itemprop="dateModified" content="2020-06-24T21:25:00+05:30">
+  <meta itemprop="author" content="Balkrishna Agarwal">
+  <!-- Twitter Cards -->
+  <meta name="twitter:title" content=""/>
+  <meta name="twitter:url" content=""/>
+  <meta name="twitter:description" content=""/>
+  <meta name="twitter:image" content=""/>
+  <meta name="twitter:card" content=""/>
+  <meta name="twitter:site" content=""/>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+  <nav>
+    <div id="nav-logo">
+      <img src="android-chrome-192x192.png" alt="Brand Logo of Read Better">
+    </div>
+    <div id="nav-container">
+      <div class="nav-links">
+        <div id="menu-bar" onclick="onClickMenu()">
+          <div id="bar1" class="bar"></div>
+          <div id="bar2" class="bar"></div>
+          <div id="bar3" class="bar"></div>
+        </div>
+        <div>
+        <ul class="nav" id="nav">
+          <li><a href="#Home">Home</a></li>
+          <li><a href="/books">All Books</a></li>
+          <!-- <li><a href="#WhyUs">Why Us</a></li>
+          <li><a href="#Portfolio">Portfolio</a></li> -->
+          <li><a href="#Contact">Contact</a></li>
+        </ul>
+        </div>
+      </div> 
+      <div class="menu-bg" id="menu-bg"></div>
+    </div>
+  </nav>
+      
+  <header id=Home>
+    <h1>Read Better - Know what the best minds are reading.</h1>
+    <br>
+    <h4>Find the books read & recommended by the top leaders, CEOs, Philosphers & All</h4>
+  </header>
+
+  <main>
+    <% data.forEach(function(dat){ %>
+    <a href="/<%= dat.twitter ? dat.twitter.id : #"></a>
+    <section class="leader_card">
+      <figure>
+        <img src="<%= dat.leaderImgPath %>" alt="Click here to find the books recommended by <%= dat.leaderName %>">
+        <br>
+        <figcaption>
+          <h3><%= dat.leaderName %></h3>
+        </figcaption>
+      </figure>
+      <p>@<%= dat.twitter? dat.twitter.id : "" %></p>
+      <p><%= dat.booksReco.length %> Books</p>
+    </section>
+    </a>
+    <% }); %>
+  </main>
+
+  <!-- Add your site or application content here -->
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
+
+<!--  <article>article is a sectioning element, and is used to wrap independent, self-contained content. The tag works well with blog entries, forum posts, or news articles.</article>
+      <section>Defines a section of a document, such as header, footer etc.
+        (or) An article is for standalone content, and a section is for grouping thematically related content. They can be used within each other, as needed. For example, if a book is the article, then each chapter is a section. When there's no relationship between groups of content, then use a div.
+      </section>
+      <footer></footer> -->
+      
+      <!-- Audio content also needs a text alternative to be accessible to people who are deaf or hard of hearing. This can be done with nearby text on the page or a link to a transcript. -->
+      <!-- <audio id="meowClip" controls>
+        <source src="audio/meow.mp3" type="audio/mpeg" />
+        <source src="audio/meow.ogg" type="audio/ogg" />
+      </audio>
+      <source>Defines alternative media resources for the media elements like <audio> or <video>.
+
+      <figure>
+        <img src="roundhouseDestruction.jpeg" alt="Photo of Camper Cat executing a roundhouse kick">
+        <br>
+        <figcaption>
+          Master Camper Cat demonstrates proper form of a roundhouse kick.
+        </figcaption>
+      </figure>
+      <figcaption>Defines a caption or legend for a figure.</figcaption>
+
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+      </form> -->
+
+      <!-- Since radio buttons often come in a group where the user must choose one, there's a way to semantically show the choices are part of a set. -->
+      <!-- <form>
+        <fieldset>
+          <legend>Choose one of these three items:</legend>
+          <input id="one" type="radio" name="items" value="one">
+          <label for="one">Choice One</label><br>
+          <input id="two" type="radio" name="items" value="two">
+          <label for="two">Choice Two</label><br>
+          <input id="three" type="radio" name="items" value="three">
+          <label for="three">Choice Three</label>
+        </fieldset>
+      </form> -->
+
+      <!-- Continuing with the date theme, HTML5 also introduced the time element along with a datetime attribute to standardize times. This is an inline element that can wrap a date or time on a page. A valid format of that date is held by the datetime attribute. This is the value accessed by assistive devices. It helps avoid confusion by stating a standardized version of a time, even if it's written in an informal or colloquial manner in the text. -->
+      <!-- <p>...<time datetime="2013-02-13">last Wednesday</time>...</p> -->
+
+      <!-- You could link to the offending site without signaling to Google that you trust it. -->
+      <!-- <a href="" rel="nofollow">I love Moz</a>
+
+      <aside>Defines some content loosely related to the page content.</aside>
+      <details>	Represents a widget from which the user can obtain additional information or controls on-demand.</details>
+      <summary>Defines a summary for the <details> element.</summary>
+      <hgroup>Defines a group of headings.</hgroup>
+      <span>Defines an inline styleless section in a document.</span>
+      <code>Specifies text as computer code.</code>
+      <cite>Indicates a citation or reference to another source.</cite>
+      <dfn>Specifies a definition.</dfn>
+      <em>Specifies emphasized text.</em>
+      <mark>Represents text highlighted for reference purposes.</mark>
+      <output>Represents the result of a calculation.</output>
+      <progress>Represents the completion progress of a task.</progress>
+      <blockquote>Defines a long quotation.
+      <q>Defines a short inline quotation.</q>
+      <address>Specifies the author's contact information.
+      <acronym>Defines an acronym.
+      <abbr>Defines an abbreviated form of a longer word or phrase.
+      <div tabindex="0">I need keyboard focus!</div>
+
+      <a href="tel:+91-7575-806-994">Call us now</a>
+      <a href="mailto:krishna@tezi.app">Connect with us over email.</a>
+      <h5>&copy; bizcatapp.com</h5>  
+
+      use fonts with below metrics to make them responsive.
+      vw (viewport width): 10vw would be 10% of the viewport's width.
+      vh (viewport height): 3vh would be 3% of the viewport's height.
+      vmin (viewport minimum): 70vmin would be 70% of the viewport's smaller dimension (height or width).
+      vmax (viewport maximum): 100vmax would be 100% of the viewport's bigger dimension (height or width). -->

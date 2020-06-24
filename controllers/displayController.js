@@ -9,17 +9,17 @@ app.set("view engine", "ejs");
 
 function DisplayController() {
   this.displayHome = async function(req, res) {
-    // LeaderModel.find(
-    //   {},
-    //   "-_id -__v -updated_on -updated_by -created_on -created_by"
-    // )
-    //   .sort("-sort_count")
-    //   .lean()
-    //   .exec((err, doc) => {
-    //     if (err) return res.send(err);
-    //     res.render(process.cwd() + "/views/main/index.ejs", { data: doc });
-    //   });
-    res.render(process.cwd() + "/views/main/index.ejs");
+    LeaderModel.find(
+      {},
+      "-_id -__v -updatedAt -updatedBy -createdAt -createdBy"
+    )
+      .sort("-sortCount")
+      .lean()
+      .exec((err, doc) => {
+        if (err) return res.send(err);
+
+        res.render(process.cwd() + "/index.ejs", { data: doc });
+      });
   };
 
   this.displayLeader = function(req, res) {
@@ -104,54 +104,6 @@ function DisplayController() {
         });
     }
   };
-
-  this.bookDataEntry = async function(req, res){
-
-    let book;
-    let bookId = req.query.bookId
-
-    if(bookId){
-      book = await BookModel.findById({_id: bookId}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
-    } else {
-      book = await BookModel.findOne({createdBy : {$exists: false}}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
-    }
-    // console.log(book);
-
-    if (!book.amazonLink.match(/^https\:\/\/www\.amazon\.in/)) book.amazonLink = "";
-    if(book){
-      // console.log(book, book.bookName);
-      res.render(
-        process.cwd() + "/views/admin/book-data-entry.ejs",
-        { data: book }
-      );
-    } else {
-      res.send("Book not uploaded");
-    }
-  }
-
-  this.leaderDataEntry = async function(req,res){
-
-    let leader;
-    let leaderId = req.query.leaderId
-    
-    if(leaderId){
-      leader = await LeaderModel.findById(leaderId).sort('-sortCount').lean().catch(err => res.send("error: "+ err));
-    } else {
-      leader = await LeaderModel.findOne({createdBy : {$exists: false}}).sort('-sortCount').lean().catch(err => res.send("error: "+ err));
-    }
-    // console.log(leader);
-
-    leader.twitter = leader.twitter || {};
-
-    if(leader){
-      res.render(
-        process.cwd() + "/views/admin/leader-data-entry.ejs",
-        { data: leader }
-      )
-    } else {
-      res.send("no leaders available")
-    }
-  }
 }
 
 module.exports = DisplayController;

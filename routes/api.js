@@ -6,6 +6,7 @@ const path = require("path");
 const LeaderController = require("../controllers/leaderController");
 const DisplayController = require("../controllers/displayController");
 const BooksController = require("../controllers/booksController");
+const AdminController = require("../controllers/adminController");
 
 var Storage = multer.diskStorage({
   destination: function(req, file, callback) {
@@ -40,6 +41,7 @@ function router(app) {
   const leaderController = new LeaderController();
   const displayController = new DisplayController();
   const booksController = new BooksController();
+  const adminController = new AdminController();
 
   app.route("/").get(displayController.displayHome);
 
@@ -47,23 +49,29 @@ function router(app) {
 
   app
     .route("/admin/book-data-entry")
-    .get(displayController.bookDataEntry);
+    .get(adminController.bookDataEntry);
 
   app
     .route("/admin/leader-data-entry")
-    .get(displayController.leaderDataEntry);
+    .get(adminController.leaderDataEntry);
+
+  app
+    .route("/admin/updated-book")
+    .post(adminController.updatedBook);
+
+  app
+    .route("/admin/updated-leader")
+    .post(adminController.updatedleader);    
 
   app
     .route("/leader_data/:twitter_id")
     .get(leaderController.leaderList)
     .put(upload.single("leader_image"), leaderController.newLeader)
-    .post(leaderController.updateLeader);
 
   app
     .route("/books_data/:book_id")
     .get(booksController.booksList)
     .put(upload.single("book_image"), booksController.newBook)
-    .post(booksController.updateBook);
 
 }
 

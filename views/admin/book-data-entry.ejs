@@ -19,7 +19,7 @@
         <main>
             <p>Check all items & approve</p>
 
-            <form id="newBookForm" enctype="text/html" method="post" action="/books_data/updateBook" >
+            <form id="newBookForm" enctype="text/html" method="post" action="/admin/updatedBook" >
                 <input name="bookId" type="text" readonly value= "<%= data._id %>">
                 <label>
                 Book Name: <a href="https://amazon.in/s?k=<%= encodeURI(data.bookName)+`+by+`+encodeURI(data.bookAuthor[0])+`&i=stripbooks` %>" target="_blank">Amazon Link</a>
