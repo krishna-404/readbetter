@@ -105,7 +105,7 @@
 
   <main>
     <% data.forEach(function(dat){ %>
-    <a href="/<%= dat.twitter ? dat.twitter.id : #"></a>
+    <a href="/<%= dat.twitter ? dat.twitter.id : '#' %>"></a>
     <section class="leader_card">
       <figure>
         <img src="<%= dat.leaderImgPath %>" alt="Click here to find the books recommended by <%= dat.leaderName %>">
