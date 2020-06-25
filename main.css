@@ -14,6 +14,11 @@
   --font2: "Passion One", sans-serif;
 }
 
+a{
+  text-decoration: none;
+  color : black;
+}
+
 body{
   text-align: center;
   margin-top: 3em;
