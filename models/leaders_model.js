@@ -14,6 +14,7 @@ const leaderSchema = new Schema({
               ISBN10: {type: String, trim: true},
               ASIN: {type: String, trim: true}
             }],
+  pass: {type: String},
   clickBy: [String],
   sortCount: {type: Number},
   createdBy: {type: String, trim: true},

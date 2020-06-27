@@ -1,6 +1,3 @@
-const session = require('express-session');
-const passport = require('passport');
-
 const LeaderModel = require("../models/leaders_model");
 const BookModel = require("../models/books_model");
 
@@ -23,14 +20,7 @@ function DisplayController() {
     let inputId = req.params.twitter_id.toLowerCase();
 
     if ( inputId == "admin") {
-      app.use(session({
-        secret: process.env.SESSION_SECRET,
-        resave: true,
-        saveUninitialized: true
-      }))
-      app.use(passport.initialize());
-      app.use(passport.session());
-
+      
       res.sendFile(process.cwd() + "/views/admin/admin.html");
     } else if (inputId == "books") {
       let book =  await BookModel.find(
