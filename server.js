@@ -2,12 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+const passport = require('passport');
 require('dotenv').config();
 
 
 var apiRoutes = require("./routes/api.js");
+const auth = require("./routes/auth.js");
 
 const app = express();
+app.set("view engine", "ejs");
 
 app.use(helmet());
 
@@ -30,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.get('/', (req, res) => res.send(process.env));
+auth(app);
 apiRoutes(app);
 
 app.use(function(req, res, next) {
