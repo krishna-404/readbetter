@@ -122,7 +122,6 @@ module.exports = router;
 
 function ensureAuthenticated(req,res,next){
   if (req.isAuthenticated()){
-    console.log(req.isAuthenticated(), req.user, req);
     return next();
   }
   res.redirect("/user/login");

@@ -9,7 +9,6 @@ function adminController() {
       if(admins.includes(req.user.twitterId)){
         let book;
         let bookId = req.query.bookId
-        console.log(req.user);
         if(bookId){
             book = await BookModel.findById({_id: bookId}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
         } else {
