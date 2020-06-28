@@ -3,7 +3,8 @@
   margin: 0;
   padding: 0;
   font-family: sans-serif, sans-serif;
-  line-height: 1.6em
+  line-height: 1.6em;
+  word-break: break-word;
 }
 
 :root{
@@ -12,6 +13,10 @@
   --black: #000000;
   --font1: "Comfortaa", sans-serif;
   --font2: "Passion One", sans-serif;
+}
+
+html{
+  overflow-x: hidden;
 }
 
 a{
@@ -160,61 +165,37 @@ nav{
 
 h1{
   padding: 1em;
+  font-size: 1.8em;
+  line-height: 1.2em;
 }
 
-main{
-  margin: 1em;
+#leader-box{
+  background: pink;
+  padding: 0.5em;
 }
 
-#book_cards{
-  display: block;
-  width: 100%
+#leader-img-box{
+  max-width: 100%
 }
-.image-box{
- 
-  border-bottom: solid 1px #c4c4c4;
-  /* border-width: 1px;
-  border-color: #c4c4c4; */
-  width: 100%;
-  overflow: auto;
-  text-align: center;
+
+#leader-img-box img{
+  max-width: 100%
+}
+
+.book-box{
+  padding: 0.5em;
+  border: solid 1px #c4c4c4;
   border-radius: 5px;
-  display: flex;
-  margin: 0.5rem;
-  
 }
 
-.image-box:hover{
+.book-box:hover{
   box-shadow: 4px 4px 6px #c4c4c4;
 }
 
-.images{
-  
-  width: auto;
-  height: 10rem;
-  margin:0;
-  padding:0;
-  margin-right: 0.2rem;
+.book-image-box img{
+  max-height: 100%;
+  max-width: 100%
 }
-.card_details{
-  flex-direction: vertical;
-  justify-content: space-evenly;
-  text-align: left;
-  height: 100%;
-  margin-bottom: 10px;
-}
-h3{
-  margin-top: 0.2rem;
-  padding: 0;
-  color: Black;
-}
-
-p{
-  margin-top: 0.2rem;
-  padding: 0;
-  color: grey;
-}
-
 
 @media only screen and (min-width: 45em) {
   /* Style adjustments for viewports that meet the condition */
@@ -234,13 +215,37 @@ p{
     vertical-align: middle;
   }
 
-  article{
-    display: flex;
-    text-align: left;
+  #leader-box{
+    width: 30%;
+    display: block;
   }
 
-  article img{
-    width: 30%;
+  main{
+    display:flex;
+  }
+
+  #books-reco-box{
+    width: 70%;
+  }
+
+  .book-box{
+    display: flex;
+  }
+
+  .book-image-box{
+    height: 25vh;
+    /* width: 30vw; */
+  }
+
+  .book-image-box img{
+    height: 100%;
+    width: auto;
+    max-width: none;
+  }
+
+  .book-details{
+    text-align: left;
+    margin-left:0.5em;
   }
 }
 
