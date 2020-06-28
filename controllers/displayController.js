@@ -20,7 +20,7 @@ function DisplayController() {
     let inputId = req.params.twitter_id.toLowerCase();
 
     if ( inputId == "admin") {
-      
+      console.log('user: ', req.user);
       res.sendFile(process.cwd() + "/views/admin/admin.html");
     } else if (inputId == "books") {
       let book =  await BookModel.find(

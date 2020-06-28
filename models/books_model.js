@@ -31,6 +31,3 @@ const bookSchema = new Schema({
 });
 
 module.exports = mongoose.model("book", bookSchema)
-
-//clickBy, recoCount
-//trim: true

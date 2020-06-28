@@ -2,11 +2,15 @@
 // const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const passport = require('passport');
+const bcrypt = require('bcrypt');
 
 const LeaderController = require("../controllers/leaderController");
 const DisplayController = require("../controllers/displayController");
 const BooksController = require("../controllers/booksController");
 const AdminController = require("../controllers/adminController");
+
+const UserModel = require("../models/users_model");
 
 var Storage = multer.diskStorage({
   destination: function(req, file, callback) {
@@ -48,12 +52,51 @@ function router(app) {
   app.route("/:twitter_id").get(displayController.displayLeader);
 
   app
+    .route("/user/login")
+    .get((req, res) => {
+      res.sendFile(process.cwd() + "/views/user/login.html")
+    })
+    .post(passport.authenticate("local", {failureRedirect : "/user/login"}), (req,res) => {
+      res.redirect("/admin");
+    })
+
+  app
+    .route("/user/logout")
+    .get((req,res) => {
+      req.logout();
+      res.redirect('/user/login');
+    })
+
+  app
+    .route("/user/register")
+    .get((req, res) => {
+      res.sendFile(process.cwd() + "/views/user/register.html")
+    })
+    .post((req,res,next) => {
+      let hash = bcrypt.hashSync(req.body.password, 12);
+
+      UserModel.create({
+        twitterId: req.body.twitterId,
+        pass: hash
+      },(err, doc) => {
+        if(err){
+          res.redirect('/admin');
+        } else {
+          next(null, doc);
+        }
+      })
+    }, 
+    passport.authenticate("local",{failureRedirect: "/user/login"}),(req,res,next) => {
+      res.redirect("/admin");
+    })
+
+  app
     .route("/admin/book-data-entry")
-    .get(adminController.bookDataEntry);
+    .get(ensureAuthenticated, adminController.bookDataEntry);
 
   app
     .route("/admin/leader-data-entry")
-    .get(adminController.leaderDataEntry);
+    .get(ensureAuthenticated, adminController.leaderDataEntry);
 
   app
     .route("/admin/updated-book")
@@ -76,3 +119,11 @@ function router(app) {
 }
 
 module.exports = router;
+
+function ensureAuthenticated(req,res,next){
+  if (req.isAuthenticated()){
+    console.log(req.isAuthenticated(), req.user, req);
+    return next();
+  }
+  res.redirect("/user/login");
+}

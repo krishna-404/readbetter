@@ -4,9 +4,12 @@ const BookModel = require("../models/books_model");
 function adminController() {
     this.bookDataEntry = async function(req, res){
 
+      const admins =process.env.ADMINS.split(' ') 
+
+      if(admins.includes(req.user.twitterId)){
         let book;
         let bookId = req.query.bookId
-
+        console.log(req.user);
         if(bookId){
             book = await BookModel.findById({_id: bookId}).sort('-recoCount').lean().catch(err => res.send("error: " + err));
         } else {
@@ -24,10 +27,16 @@ function adminController() {
         } else {
             res.send("Book not uploaded");
         }
+      } else {
+        res.redirect('/');
+      }
     }
     
     this.leaderDataEntry = async function(req,res){
 
+      const admins =process.env.ADMINS.split(' ') 
+
+      if(admins.includes(req.user.twitterId)){
         let leader;
         let leaderId = req.query.leaderId
         
@@ -48,6 +57,9 @@ function adminController() {
         } else {
             res.send("no leaders available")
         }
+      } else {
+        res.redirect('/');
+      }
     }
 
     this.updatedBook = async function(req, res) {
