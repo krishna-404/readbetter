@@ -5,6 +5,12 @@ const cheerio = require('cheerio');
 
 
 function BooksController() {
+
+  this.getBook = function(req,res){
+
+    res.render(process.cwd() + "/views/dispBook/dispBook.ejs", {book: book})
+  };
+
   this.booksList = function(req, res) {
     res.sendFile(`${process.cwd()}` + "/views/admin/book_data_entry.html");
   };

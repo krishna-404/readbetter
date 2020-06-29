@@ -107,6 +107,10 @@ function router(app) {
     .post(adminController.updatedLeader);
 
   app
+    .route("/books/:isbn/")
+    .get(booksController.getBook)
+
+  app
     .route("/leader_data/:twitter_id")
     .get(leaderController.leaderList)
     .put(upload.single("leader_image"), leaderController.newLeader)

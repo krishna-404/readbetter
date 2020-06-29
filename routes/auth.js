@@ -31,7 +31,7 @@ module.exports = function(app){
                                     passwordField: 'password'}, 
         async function(twitterId, password, done){
             let user = await UserModel.findOne({twitterId: twitterId});
-            console.flog('user ' + twitterId + ' attempted to log in.');
+            console.log('user ' + twitterId + ' attempted to log in.');
             if(!user) {return done(null, false)};
             if(!bcrypt.compareSync(password, user.pass)) {return done (null, false)};
             return done(null, user);
