@@ -12,6 +12,9 @@ function DisplayController() {
       .exec((err, doc) => {
         if (err) return res.send(err);
 
+        console.log(process.env.SESSION_SECRET, process.env.ADMINS, process.env.CUSTOMCONNSTR_DB);
+        console.log(" Im working in homepage..........");
+
         res.render(process.cwd() + "/index.ejs", { data: doc });
       });
   };
