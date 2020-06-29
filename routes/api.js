@@ -56,7 +56,7 @@ function router(app) {
     .get((req, res) => {
       res.sendFile(process.cwd() + "/views/user/login.html")
     })
-    .post(passport.authenticate("local", {failureRedirect : "/user/login"}), (req,res) => {
+    .post(passport.authenticate("local", {failureRedirect : "/user/login"}), (req, res) => {
       res.redirect("/admin");
     })
 
@@ -72,23 +72,31 @@ function router(app) {
     .get((req, res) => {
       res.sendFile(process.cwd() + "/views/user/register.html")
     })
-    .post((req,res,next) => {
-      let hash = bcrypt.hashSync(req.body.password, 12);
+    .post(async (req,res,next) => {
+        let user = await UserModel.findOne({twitterId: req.body.twitterId.toLowerCase()})
+        if(!user){
+          let hash = bcrypt.hashSync(req.body.password, 12);
 
-      UserModel.create({
-        twitterId: req.body.twitterId,
-        pass: hash
-      },(err, doc) => {
-        if(err){
-          res.redirect('/admin');
+          UserModel.create({
+            twitterId: req.body.twitterId,
+            pass: hash
+          },(err, doc) => {
+            if(err){
+              res.redirect('/admin');
+            } else {
+              next(null, doc);
+            }
+          })
         } else {
-          next(null, doc);
+          res.send("User already exists");
         }
-      })
-    }, 
-    passport.authenticate("local",{failureRedirect: "/user/login"}),(req,res,next) => {
-      res.redirect("/admin");
-    })
+      }, 
+      passport.authenticate("local",{failureRedirect: "/user/login"}),
+      (req,res,next) => {
+        res.redirect("/admin");
+      }
+    )
+    
 
   app
     .route("/admin/book-data-entry")
