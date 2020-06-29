@@ -13,6 +13,8 @@ app.set("view engine", "ejs");
 
 app.use(helmet());
 
+console.log(process.env.SESSION_SECRET, process.env.ADMINS, process.env.CUSTOMCONNSTR_DB);
+
 // Database mongoose  connection
 mongoose.connect(process.env.CUSTOMCONNSTR_DB, {
   useNewUrlParser: true,
@@ -34,6 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.get('/', (req, res) => res.send(process.env));
 auth(app);
 apiRoutes(app);
+
 
 app.use(function(req, res, next) {
     res.status(404)
