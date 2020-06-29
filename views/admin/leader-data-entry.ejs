@@ -22,7 +22,7 @@
             <form id="newBookForm" enctype="text/html" method="post" action="/admin/updated-leader">
                 <input name="leaderId" type="text" readonly value= "<%= data._id %>">
                 <label>
-                Leader Name:
+                Leader Name: <a href="https://google.com/search?q=<%= encodeURI(data.leaderName + ' twitter ' + data.leaderSector) %>" target="_blank">Google Link</a>
                 <input name="leaderName" type="text" required value="<%= data.leaderName %>">
                 </label>
                 <label>
