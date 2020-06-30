@@ -45,9 +45,9 @@ function DisplayController() {
       let leader = await LeaderModel.findOne({'twitter.id' : inputId}, '-_id -__v -createdBy -updatedBy -createdAt -updatedAt')
                                     .lean();
 
-      if(leader.booksReco.length != books.length){
-        console.log("Book Count mismatch", leader);
-      }
+      // if(leader.booksReco.length != books.length){
+      //   console.log("Book Count mismatch", leader);
+      // }
 
       let data = {leader, books};
 
