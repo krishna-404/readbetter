@@ -15,10 +15,6 @@
   --font2: "Passion One", sans-serif;
 }
 
-html{
-  overflow-x: hidden;
-}
-
 a{
   text-decoration: none;
   color: black;
@@ -225,13 +221,13 @@ h1{
     vertical-align: middle;
   }
 
+  main{
+    display:flex;
+  }
+
   #leader-box{
     width: 30%;
     display: block;
-  }
-
-  main{
-    display:flex;
   }
 
   #books-reco-box{
