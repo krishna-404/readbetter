@@ -13,10 +13,10 @@ app.set("view engine", "ejs");
 
 app.use(helmet());
 
-console.log(process.env.SESSION_SECRET, process.env.ADMINS, process.env.CUSTOMCONNSTR_DB);
+//console.log(process.env.SESSION_SECRET, process.env.ADMINS, process.env.CUSTOMCONNSTR_DB);
 console.log(" Im working..........");
 // Database mongoose  connection
-mongoose.connect(process.env.CUSTOMCONNSTR_DB, {
+mongoose.connect(process.env.CUSTOMCONNSTR_DB || process.env.DB, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,

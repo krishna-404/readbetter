@@ -1,12 +1,26 @@
 const LeaderModel = require("../models/leaders_model");
 const BookModel = require("../models/books_model");
-const got = require('got');
-const cheerio = require('cheerio');
-
 
 function BooksController() {
 
-  this.getBook = function(req,res){
+  this.getBook = async function(req,res){
+    let book = await BookModel.findOne({$or: [
+                  {ISBN13: req.params.isbn},
+                  {ISBN10: req.params.isbn},
+                  {ASIN: req.params.isbn}
+                ]}).lean()
+    
+    
+    for (let i=0; i<book.leadersReco.length; i++){
+
+      let leader = await LeaderModel.findOne({'twitter.id': book.leadersReco[i].twitterId}).lean()
+
+      book.leadersReco[i].leaderName = leader.leaderName;
+      book.leadersReco[i].leaderImgPath = leader.leaderImgPath;
+      book.leadersReco[i].sortCount = leader.sortCount;
+    }
+
+    book.leadersReco.sort((a,b) => b.sortCount - a.sortCount) //sorting array in descending order of sortCount
 
     res.render(process.cwd() + "/views/dispBook/dispBook.ejs", {book: book})
   };
