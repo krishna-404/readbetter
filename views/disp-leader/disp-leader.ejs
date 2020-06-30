@@ -139,11 +139,16 @@
     </section>
     <section id="books-reco-box">
       <% data.books.forEach(function(dat){ %>
-      <a href="<%= dat.amazonLink %>" target="_blank">
       <div class="book-box" id='book-box'>
           <div class="book-image-box">
-            <img src="<%= dat.bookImgPath %>" alt="Picture of the book name <%= dat.bookName %>" class="images">
+            <a class= ".book-reco-link" href="/books/<%= dat.ISBN13 || dat.ISBN10 || dat.ASIN %>/">
+            <img class = "book-img" src="<%= dat.bookImgPath %>" alt="Picture of the book name <%= dat.bookName %>" class="images">
+            </a>
+            <a href="<%= dat.amazonLink %>" target="_blank">
+            <img class= "buy-amazon-img" src = "..\images\amazon-buy-now-button-png-parallel-3586x852.png" alt="Buy on Amazon button">
+            </a>
           </div>
+          <a class= ".book-reco-link" href="/books/<%= dat.ISBN13 || dat.ISBN10 || dat.ASIN %>/">
           <div class = "book-details">
             <h4><%= dat.bookName %></h4>
             <p>by <%= dat.bookAuthor.join(', ') %></p>
@@ -154,8 +159,9 @@
             <p>Tags: <%= dat.bookTags.join(", ") %></p>
             <p>Recommended by <%= dat.recoCount %> leader(s)</p>
           </div>
+          </a>
       </div>
-      </a>
+      <!-- </a> -->
       <% }); %>
     </section>
   </main>

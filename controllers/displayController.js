@@ -30,7 +30,6 @@ function DisplayController() {
         .limit(50)
         .lean()
         .exec((err, doc) => {
-          console.log(doc);
           res.render(
             process.cwd() + "/views/disp-allbooks/disp-allbooks.ejs",
             { data: doc }

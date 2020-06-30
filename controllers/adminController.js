@@ -133,7 +133,6 @@ function adminController() {
                                   ).lean();
         // console.log(book);
         let book = [];
-        console.log(bookUpdate);
         book.push(bookUpdate);
         res.render(
           process.cwd() + "/views/admin/display-updatedBook.ejs",
@@ -160,7 +159,6 @@ function adminController() {
                                         'bookName bookAuthor ISBN13 ISBN10 ASIN bookTags bookImgPath amazonLink recoCount leadersReco.$')
                                         .sort('-recoCount').lean();
           // {'leadersReco.$' : 1, _id: 0}
-        console.log("book: ", books);
     
         let leader = await LeaderModel.findByIdAndUpdate(req.body.leaderId, {
                     $set: {
@@ -185,7 +183,6 @@ function adminController() {
         }
     
         let data = {leader, books};
-        console.log(data);
     
         res.render(
           process.cwd() + "/views/admin/display-updatedLeader.ejs",

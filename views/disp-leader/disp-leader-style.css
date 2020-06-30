@@ -192,9 +192,19 @@ h1{
   box-shadow: 4px 4px 6px #c4c4c4;
 }
 
-.book-image-box img{
-  max-height: 100%;
+.book-image-box{
+  display: flex;
+  flex-direction: column;
+}
+
+.book-img{
+  max-height: 90%;
   max-width: 100%
+}
+
+.buy-amazon-img{
+  max-width: 30%;
+  margin: 0.5em;
 }
 
 @media only screen and (min-width: 45em) {
@@ -233,14 +243,19 @@ h1{
   }
 
   .book-image-box{
-    height: 25vh;
-    /* width: 30vw; */
+    width: 20vw;
+    max-width: 200px;
   }
 
-  .book-image-box img{
-    height: 100%;
-    width: auto;
-    max-width: none;
+  .book-img{
+    height: auto;
+    width: 20vw;
+    max-width: 200px;
+    max-height: none;
+  }
+
+  .buy-amazon-img{
+    max-width: 50%;
   }
 
   .book-details{

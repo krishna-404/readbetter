@@ -13,7 +13,7 @@ module.exports = function(app){
     app.use(session({
         secret: process.env.SESSION_SECRET,
         resave: true,
-        saveUnintialized: true
+        saveUninitialized: true
     }))
 
     app.use(passport.initialize());
