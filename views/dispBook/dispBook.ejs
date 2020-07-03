@@ -132,7 +132,7 @@
     </section>
     <section id="leaders-reco-box">
       <% book.leadersReco.forEach(function(leader){ %>
-        <a href="/<%= leader.twitterId %>">
+        <a href="<%= leader.leaderRBLink %>">
         <div class="leader-box">
         <div class="leader-img-box">
           <img src="<%= leader.leaderImgPath %>" alt="Picture of <%= leader.leaderName %>">

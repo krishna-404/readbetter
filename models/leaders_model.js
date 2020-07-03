@@ -6,6 +6,7 @@ const leaderSchema = new Schema({
   leaderSector:  {type:String, trim: true},
   leaderBio: { type: String, trim: true },
   leaderImgPath: { type: String, trim:true},
+  leaderRBLink: {type: String, trim:true},
   leaderStoryLink: {type: String, trim:true},
   twitter: { id: { type: String, trim: true, unique: true }, followers: { type: Number } },
   booksReco: [{
@@ -14,7 +15,6 @@ const leaderSchema = new Schema({
               ISBN10: {type: String, trim: true},
               ASIN: {type: String, trim: true}
             }],
-  pass: {type: String},
   clickBy: [String],
   sortCount: {type: Number},
   createdBy: {type: String, trim: true},

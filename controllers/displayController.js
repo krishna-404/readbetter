@@ -39,11 +39,21 @@ function DisplayController() {
     else {
 
       let books = await BookModel.find({'leadersReco.twitterId': inputId}, 
-                                        'bookName bookAuthor ISBN13 ISBN10 ASIN bookTags bookImgPath amazonLink recoCount leadersReco.$')
+                                        'bookName bookAuthor ISBN13 ISBN10 ASIN bookTags bookImgPath bookRBLink amazonLink recoCount leadersReco.$')
                                         .sort('-recoCount').lean();
+
+      if(books.length === 0){
+        books = await BookModel.find({'leadersReco.leaderDbId': req.params.twitter_id}, 
+                                      'bookName bookAuthor ISBN13 ISBN10 ASIN bookTags bookImgPath bookRBLink amazonLink recoCount leadersReco.$')
+                               .sort('-recoCount').lean();
+      }
 
       let leader = await LeaderModel.findOne({'twitter.id' : inputId}, '-_id -__v -createdBy -updatedBy -createdAt -updatedAt')
                                     .lean();
+      if(!leader){
+        leader = await LeaderModel.findOne({_id: req.params.twitter_id}, '-_id -__v -createdBy -updatedBy -createdAt -updatedAt')
+                                  .lean();
+      }
 
       // if(leader.booksReco.length != books.length){
       //   console.log("Book Count mismatch", leader);

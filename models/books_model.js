@@ -11,6 +11,7 @@ const bookSchema = new Schema({
   bookTags: [String],
   bookImgPath: { type: String, trim: true },
   amazonLink: { type: String, trim: true, unique: true },
+  bookRBLink: {type: String, trim: true},
   bookStoryLink: {type: String, trim: true},
   clickBy: [String],
   recoCount: {type: Number},

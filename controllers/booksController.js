@@ -10,6 +10,9 @@ function BooksController() {
                   {ASIN: req.params.isbn}
                 ]}).lean()
     
+    if(!book){
+      book = await BookModel.findOne({_id: req.params.isbn}).lean()
+    }
     
     for (let i=0; i<book.leadersReco.length; i++){
 
@@ -18,6 +21,7 @@ function BooksController() {
       book.leadersReco[i].leaderName = leader.leaderName;
       book.leadersReco[i].leaderImgPath = leader.leaderImgPath;
       book.leadersReco[i].sortCount = leader.sortCount;
+      book.leadersReco[i].leaderRBLink = leader.leaderRBLink;
     }
 
     book.leadersReco.sort((a,b) => b.sortCount - a.sortCount) //sorting array in descending order of sortCount

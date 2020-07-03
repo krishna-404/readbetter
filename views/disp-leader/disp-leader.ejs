@@ -141,14 +141,14 @@
       <% data.books.forEach(function(dat){ %>
       <div class="book-box" id='book-box'>
           <div class="book-image-box">
-            <a class= ".book-reco-link" href="/books/<%= dat.ISBN13 || dat.ISBN10 || dat.ASIN %>/">
+            <a class= ".book-reco-link" href="<%= dat.bookRBLink %>">
             <img class = "book-img" src="<%= dat.bookImgPath %>" alt="Picture of the book name <%= dat.bookName %>" class="images">
             </a>
             <a href="<%= dat.amazonLink %>" target="_blank">
             <img class= "buy-amazon-img" src = "..\images\amazon-buy-now-button-png-parallel-3586x852.png" alt="Buy on Amazon button">
             </a>
           </div>
-          <a class= ".book-reco-link" href="/books/<%= dat.ISBN13 || dat.ISBN10 || dat.ASIN %>/">
+          <a class= ".book-reco-link" href="<%= dat.bookRBLink %>">
           <div class = "book-details">
             <h4><%= dat.bookName %></h4>
             <p>by <%= dat.bookAuthor.join(', ') %></p>

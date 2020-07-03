@@ -35,6 +35,7 @@
 										<p><strong>ISBN-13:</strong> <%= dat.ISBN13 %></p>
 										<p><strong>ISBN-10:</strong> <%= dat.ISBN10 %></p>
 										<p><strong>ASIN:</strong> <%= dat.ASIN %></p>
+										<p><strong>New Link:</strong> <%= dat.bookRBLink %></p>
 										<p><strong>Book Description:</strong> <%- dat.bookDesc %></p>
 										<p><strong>Tags:</strong> <%= dat.bookTags %></p>
                     					<p><strong>Recommended by:</strong> <% dat.leadersReco.forEach(function(dat){ %> @<%= dat.twitterId %> <% }); %></p>

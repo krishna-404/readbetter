@@ -115,7 +115,7 @@ function router(app) {
     .post(adminController.updatedLeader);
 
   app
-    .route("/books/:isbn/")
+    .route("/books/:isbn/:bookName")
     .get(booksController.getBook)
 
   app

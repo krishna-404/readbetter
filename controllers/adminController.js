@@ -111,6 +111,8 @@ function adminController() {
                                               'booksReco.$.ASIN': ASIN
                                             }}).lean();
     
+        let newLink = encodeURI((`/books/${ISBN13 || ISBN10 || ASIN || req.body.bookId}/${req.body.bookAuthor.split(',')[0]+" "+req.body.bookName }`).replace(/\s/g, "-"));
+
         let bookUpdate = await BookModel.findByIdAndUpdate(
                                     {_id: req.body.bookId}, {
                                       $set: {
@@ -121,6 +123,7 @@ function adminController() {
                                       ASIN: ASIN,
                                       bookDesc: req.body.bookDesc,
                                       bookImgPath: bookImgPath,
+                                      bookRBLink: newLink,
                                       amazonLink: req.body.amazonLink,
                                       createdBy: req.connection.remoteAddress,
                                       updatedBy: req.connection.remoteAddress
@@ -160,14 +163,19 @@ function adminController() {
                                         .sort('-recoCount').lean();
           // {'leadersReco.$' : 1, _id: 0}
     
+        let twitterId = req.body.twitter_id.toLowerCase().replace("@", "");                                    
+
+        let newLink = encodeURI((`/${twitterId.toLowerCase() || req.body.leaderId}`));
+
         let leader = await LeaderModel.findByIdAndUpdate(req.body.leaderId, {
                     $set: {
                       leaderName: req.body.leaderName,
                       leaderSector: req.body.leaderSector,
                       leaderBio: req.body.leaderBio,
                       leaderImgPath: req.body.leaderImgPath,
+                      leaderRBLink: newLink,
                       leaderStoryLink: req.body.leaderStoryLink,
-                      'twitter.id': req.body.twitter_id.toLowerCase(),
+                      'twitter.id': twitterId,
                       'twitter.followers': req.body.twitter_followers,
                       sortCount: req.body.twitter_followers,
                       createdBy: ip,
