@@ -15,8 +15,13 @@ function BooksController() {
     }
     
     for (let i=0; i<book.leadersReco.length; i++){
-
-      let leader = await LeaderModel.findOne({'twitter.id': book.leadersReco[i].twitterId}).lean()
+      let leader;
+      
+      if(book.leadersReco[i].twitterId){
+        leader = await LeaderModel.findOne({'twitter.id': book.leadersReco[i].twitterId}).lean()
+      } else {
+        leader = await LeaderModel.findOne({_id: book.leadersReco[i].leaderDbId}).lean()
+      }
 
       book.leadersReco[i].leaderName = leader.leaderName;
       book.leadersReco[i].leaderImgPath = leader.leaderImgPath;
