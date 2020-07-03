@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 
 app.use(helmet());
 
+console.log("Server js file is loaded");
 // Database mongoose  connection
 mongoose.connect(process.env.CUSTOMCONNSTR_DB || process.env.DB, {
   useNewUrlParser: true,

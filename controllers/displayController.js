@@ -11,7 +11,7 @@ function DisplayController() {
       .lean()
       .exec((err, doc) => {
         if (err) return res.send(err);
-
+        console.log("Home page is loading");
         res.render(process.cwd() + "/index.ejs", { data: doc });
       });
   };
