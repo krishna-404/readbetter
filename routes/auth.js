@@ -39,27 +39,27 @@ module.exports = function(app){
         }
     ))
 
-    passport.use(new TwitterStrategy({
-        consumerKey: process.env.twitter_API_key,
-        consumerSecret: process.env.twitter_API_secret_key,
-        callbackURL: process.env.twitterCallback
-    },
-        async function(token, tokenSecret, profile, cb){
+    // passport.use(new TwitterStrategy({
+    //     consumerKey: process.env.twitter_API_key,
+    //     consumerSecret: process.env.twitter_API_secret_key,
+    //     callbackURL: process.env.twitterCallback
+    // },
+    //     async function(token, tokenSecret, profile, cb){
 
-            console.log("Twitter Profile: ", profile);
+    //         console.log("Twitter Profile: ", profile);
 
-            let user = await  UserModel.findOne({twitterId: profile._json.id_str});
+    //         let user = await  UserModel.findOne({twitterId: profile._json.id_str});
 
-            if(!user){
-                user = await new UserModel({
-                    name:profile._json.name,
-                    screenName: profile._json.id_str,
-                    twitterId: profile._json.id_str,
-                    profileImageUrl: profile._json.profile_image_url
-                }).save();
-            }
+    //         if(!user){
+    //             user = await new UserModel({
+    //                 name:profile._json.name,
+    //                 screenName: profile._json.id_str,
+    //                 twitterId: profile._json.id_str,
+    //                 profileImageUrl: profile._json.profile_image_url
+    //             }).save();
+    //         }
 
-            cb(null, user);
-        }
-    ))
+    //         cb(null, user);
+    //     }
+    // ))
 }
