@@ -5,6 +5,7 @@ const path = require("path");
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
+
 const LeaderController = require("../controllers/leaderController");
 const DisplayController = require("../controllers/displayController");
 const BooksController = require("../controllers/booksController");
@@ -57,6 +58,16 @@ function router(app) {
       res.sendFile(process.cwd() + "/views/user/login.html")
     })
     .post(passport.authenticate("local", {failureRedirect : "/user/login"}), (req, res) => {
+      res.redirect("/admin");
+    })
+
+  app
+    .route("user/login/twitter")
+    .get(passport.authenticate('twitter'));
+
+  app
+    .route("user/login/twitter/callback")
+    .get(passport.authenticate('twitter', {failureRedirect : "/user/login"}), (req,res) => {
       res.redirect("/admin");
     })
 
