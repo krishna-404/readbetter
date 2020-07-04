@@ -61,15 +61,15 @@ function router(app) {
       res.redirect("/admin");
     })
 
-  // app
-  //   .route("user/login/twitter")
-  //   .get(passport.authenticate('twitter'));
+  app
+    .route("user/login/twitter")
+    .get(passport.authenticate('twitter'));
 
-  // app
-  //   .route("user/login/twitter/callback")
-  //   .get(passport.authenticate('twitter', {failureRedirect : "/user/login"}), (req,res) => {
-  //     res.redirect("/admin");
-  //   })
+  app
+    .route("user/login/twitter/callback")
+    .get(passport.authenticate('twitter', {failureRedirect : "/user/login"}), (req,res) => {
+      res.redirect("/admin");
+    })
 
   app
     .route("/user/logout")
