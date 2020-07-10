@@ -3,12 +3,31 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     twitterId: { type: String, trim: true, required: true },
-    pass: {type: String},
-    name: {type: String},
-    screenName: {type: String},
-    profileImageUrl : {type: String},
-    createdBy: {type: String, trim: true},
-    updatedBy: {type: String, trim: true}
+    twitterHandle: {type: String, trim:true},
+    twitterName: {type: String},
+    profileName: {type: String},
+    twitterImageUrl : {type: String},
+    profileImage:{type: String},
+    followersCount: {type: Number},
+    friendsCount: {type: Number},
+    friendsList :[{
+      friendsTwitterId: {type: String, trim: true},
+      friendsTwitterHandle: {type: String, trim: true},
+      booksRecoCount: {type: Number}
+    }],
+    friendsBooks:[{
+      bookId: {type: String, trim: true},
+      ISBN13: {type: String, trim: true},
+      ISBN10: {type: String, trim: true},
+      ASIN: {type: String, trim: true},
+      recommendedBy:[{
+        leaderTwitterId: {type: String, trim: true},
+        leaderTwitterHandle: {type: String, trim: true}
+      }] 
+    }],
+    listedCount: {type: Number},
+    twitterOAuthToken: {type: String},
+    twitterOAuthTokenSecret: {type: String},
 },{
   timestamps: true,
   collection: 'users'

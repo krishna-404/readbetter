@@ -68,6 +68,10 @@ function DisplayController() {
         
     }
   };
+
+  this.showProfile = async function(req,res){
+
+  };
 }
 
 module.exports = DisplayController;

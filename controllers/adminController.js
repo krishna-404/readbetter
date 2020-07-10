@@ -35,7 +35,9 @@ function adminController() {
 
       const admins =process.env.ADMINS.split(' ') 
 
-      if(admins.includes(req.user.twitterId)){
+      console.log("user: ", req.user);
+
+      if(admins.includes(req.user.twitterHandle)){
         let leader;
         let leaderId = req.query.leaderId
         

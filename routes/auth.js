@@ -46,18 +46,23 @@ module.exports = function(app){
     },
         async function(token, tokenSecret, profile, cb){
 
-            console.log("Twitter Profile: ", profile);
+            console.log("Twitter Profile: ", profile, profile.photos[0], "token: ", token, "tokenSecret: ", tokenSecret);
 
-            let user = await  UserModel.findOne({twitterId: profile._json.id_str});
-
-            if(!user){
-                user = await new UserModel({
-                    name:profile._json.name,
-                    screenName: profile._json.id_str,
-                    twitterId: profile._json.id_str,
-                    profileImageUrl: profile._json.profile_image_url
-                }).save();
+            let user = {
+                twitterId: profile._json.id_str,
+                twitterHandle: profile._json.screen_name,
+                twitterName:profile._json.name,
+                twitterImageUrl: profile._json.profile_image_url,
+                followersCount: profile._json_followers_count,
+                friendsCount: profile._json.friends_count,
+                listedCount: profile._json.listed_count,
+                twitterOAuthToken: token,
+                twitterOAuthTokenSecret: tokenSecret
             }
+
+            user = await  UserModel.findOneAndUpdate({twitterId: profile._json.id_str}, 
+                                                      user, 
+                                                      {upsert: true, returnOriginal: false});
 
             cb(null, user);
         }

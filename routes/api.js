@@ -10,6 +10,7 @@ const LeaderController = require("../controllers/leaderController");
 const DisplayController = require("../controllers/displayController");
 const BooksController = require("../controllers/booksController");
 const AdminController = require("../controllers/adminController");
+const updateFriendsList = require("../twitterAPI/get-friends-list")
 
 const UserModel = require("../models/users_model");
 
@@ -62,14 +63,24 @@ function router(app) {
     })
 
   app
-    .route("user/login/twitter")
-    .get(passport.authenticate('twitter'));
+    .route("/user/login/twitter")
+    .get(passport.authenticate('twitter'), (req) => {
+      console.log("Req here:", req);
+    });
 
   app
-    .route("user/login/twitter/callback")
+    .route("/user/login/twitter/callback")
     .get(passport.authenticate('twitter', {failureRedirect : "/user/login"}), (req,res) => {
-      res.redirect("/admin");
+      res.redirect(`/${req.user.twitterHandle}/update/friends`);
     })
+
+  app
+    .route('/:user/profile')
+    .get(ensureAuthenticated, displayController.showProfile);
+
+  app
+    .route('/:user/update/friends')
+    .get(ensureAuthenticated, updateFriendsList);
 
   app
     .route("/user/logout")
