@@ -70,7 +70,7 @@ function DisplayController() {
   };
 
   this.showProfile = async function(req,res){
-
+    res.json(req.user);
   };
 }
 

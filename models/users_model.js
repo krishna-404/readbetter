@@ -11,16 +11,20 @@ const userSchema = new Schema({
     followersCount: {type: Number},
     friendsCount: {type: Number},
     friendsList :[{
+      _id: false,
       friendsTwitterId: {type: String, trim: true},
       friendsTwitterHandle: {type: String, trim: true},
       booksRecoCount: {type: Number}
     }],
     friendsBooks:[{
+      _id: false,
       bookId: {type: String, trim: true},
       ISBN13: {type: String, trim: true},
       ISBN10: {type: String, trim: true},
       ASIN: {type: String, trim: true},
       recommendedBy:[{
+        _id: false,
+        leaderId: {type: String, trim: true},
         leaderTwitterId: {type: String, trim: true},
         leaderTwitterHandle: {type: String, trim: true}
       }] 

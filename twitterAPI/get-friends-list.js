@@ -2,30 +2,31 @@ const Twitter = require('twitter-lite');
 const UserModel = require("../models/users_model");
 const LeaderModel = require("../models/leaders_model");
 
-module.exports = async function(){
+async function start(req, res){
+    console.log("start");
+    let dbUser = await UserModel.findOne({twitterId: req.user.twitterId});
+    console.log(req.user, "dbUser:", dbUser);
 
-    
-    let nextCursor = -1;
-
-    let dbUser = await UserModel.find({twitterId: req.user.twitterId});
-
-    let lists;
 
     //when new friends are followed.
     if(dbUser.friendsCount > dbUser.friendsList.length){
         dbUser = await newFriends(-1, dbUser);
         console.log("dbUser: ", dbUser);
-        await dbUser.save();
+        dbUser = await dbUser.save();
     }
     //when friends are unfollowed.
 
 
     console.log(dbUser.friendsCount, dbUser.friendsList.length, dbUser.friendsList);
+    console.log(`/${dbUser.twitterHandle}/profile`);
     res.redirect(`/${dbUser.twitterHandle}/profile`);
 
 }
 
+var counting = 0;
+
 function newFriends(cursor, dbUser){
+    console.log("function counting:", ++counting, cursor)
     return new Promise((resolve, reject) => {
         const client = new Twitter({
             subdomain: "api", // "api" is the default (change for other subdomains)
@@ -42,27 +43,27 @@ function newFriends(cursor, dbUser){
                 cursor: cursor,
                 count: 200,
             })
-            .then(response => {
+            .then(async (response) => {
                 console.log("inside newFriends");
                 let commonEnteries = 0;
                 let nextCursor = response.next_cursor_str;
 
                 //go through each user one by one & check with existing entry
                 for(let i=0; i<response.users.length && commonEnteries < 4 ; i++){
-                    console.log("step 1");
+                    // console.log(i, "step 1", response.users[i].screen_name);
                     dbUser.friendsList = dbUser.friendsList || [];
                     //if no existing entry
                     if(!dbUser.friendsList.find((o, cnt) => o.friendsTwitterId == response.users[i].id_str)){
-                        console.log("friend doesn't exist");                   
+                        // console.log("friend doesn't exist");                   
                         //find friend in leaders (we are not checking for new books in leaders count)
                         const newFriend = {
                             friendsTwitterId: response.users[i].id_str,
                             friendsTwitterHandle: response.users[i].screen_name
                         }
 
-                        let leader = await LeaderModel.find({$or: [
+                        let leader = await LeaderModel.findOne({$or: [
                                                             {'twitter.id': response.users[i].id_str},
-                                                            {'twitter.id': response.users[i].screen_name}
+                                                            {'twitter.id': response.users[i].screen_name.toLowerCase()}
                                                         ]})
                         // if leader exists
                         if(leader){
@@ -70,17 +71,21 @@ function newFriends(cursor, dbUser){
 
                             leader.twitter.id = response.users[i].id_str;
                             leader.twitter.handle = response.users[i].screen_name;
-                            console.log(leader);
+                            console.log(leader.twitter.handle);
                             // await leader.save();
 
                             dbUser.friendsBooks = dbUser.friendsBooks || [];
                             const newLeader =   {
+                                                leaderId: leader.id,
                                                 leaderTwitterId : response.users[i].id_str,
                                                 leaderTwitterHandle: response.users[i].screen_name
                                                 }
+                            console.log(newLeader);
                             //go through all books recommended one by one
-                            for(let j=0; j<leader.booksReco.length; i++){
+                            for(let j=0; j<leader.booksReco.length; j++){
                                 //add the book & leader details to the list
+
+                                //beware of matching nulls & blanks
                                 let bookFind = await dbUser.friendsBooks.find((o, cnt)=> {
                                                     if( o.bookId == leader.booksReco[j].id ||
                                                         o.ISBN13 == leader.booksReco[j].ISBN13 ||
@@ -90,7 +95,7 @@ function newFriends(cursor, dbUser){
                                                             return true;
                                                         } 
                                                 })
-                                
+                                console.log(bookFind);
                                 if(!bookFind){
                                     const newBook = {
                                         bookId: leader.booksReco[j].id,
@@ -100,6 +105,7 @@ function newFriends(cursor, dbUser){
                                         recommendedBy: [{newLeader}]
                                     }
                                     dbUser.friendsBooks.push(newBook);
+                                    console.log(dbUser.friendsBooks);
                                 }
                             
                                                                  
@@ -111,23 +117,27 @@ function newFriends(cursor, dbUser){
                         }
                         dbUser.friendsList.push(newFriend);
                     } else {
-                        console.log("friend exists", "commonEnteries:", commonEnteries);
-                        commonEntries++;
+                        console.log("friend exists", response.users[i].screen_name, "commonEnteries:", commonEnteries);
+                        commonEnteries++;
                     }
                 }
                 //If count!=length & newtargetcursor>0, recall function with new target cursor
+                console.log("before step 2", counting, dbUser.friendsCount, dbUser.friendsList.length );
                 if(dbUser.friendsCount > dbUser.friendsList.length && Number(nextCursor)>0){
-                    console.log("step 2");
-                    await newFriends(nextCursor, dbUser);
+                    console.log("step 2", dbUser.friendsCount, dbUser.friendsList.length, "***************************");
+                    dbUser = await newFriends(nextCursor, dbUser);
                 }
 
                 // because count == length or no further new targetcursor to scrape we return the leader
+                console.log("resolve here $$$$$$$$$$$$$$$");
                 resolve(dbUser);
                 
                 console.log("response.users: ", response.users, "response: ", response);
-                nextCursor = response.next_cursor_str;
+                // nextCursor = response.next_cursor_str;
                 console.log(Number(nextCursor), typeof(Number(nextCursor)))
             })
             .catch(err => console.log(err))
     })
 }
+
+module.exports = start;
