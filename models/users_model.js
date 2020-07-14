@@ -6,6 +6,7 @@ const userSchema = new Schema({
     twitterHandle: {type: String, trim:true},
     twitterName: {type: String},
     profileName: {type: String},
+    twitterBio : {type: String},
     twitterImageUrl : {type: String},
     profileImage:{type: String},
     followersCount: {type: Number},

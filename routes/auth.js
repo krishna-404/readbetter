@@ -50,6 +50,7 @@ module.exports = function(app){
                 twitterId: profile._json.id_str,
                 twitterHandle: profile._json.screen_name,
                 twitterName:profile._json.name,
+                twitterBio: profile._json.description,
                 twitterImageUrl: profile._json.profile_image_url_https.replace("normal", "400x400"),
                 followersCount: profile._json.followers_count,
                 friendsCount: profile._json.friends_count,

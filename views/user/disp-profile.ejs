@@ -133,9 +133,9 @@
         <img src="<%= data.user.twitterImageUrl %>" alt="Picture of <%= data.user.twitterImageUrl %> from the field of <%= data.user.twitterId %> ">
       </div>
       <h2><%= data.user.twitterName %></h2>
-      <h3><%= data.user.twitterId %></h3>
+      <h3>@<%= data.user.twitterHandle %></h3>
       <br>
-      <p><%- data.user.twitterHandle %></p>
+      <p><%- data.user.twitterBio %></p>
     </section>
     <section id="books-reco-box">
       <% data.books.forEach(function(dat){ %>
