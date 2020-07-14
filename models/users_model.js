@@ -22,6 +22,7 @@ const userSchema = new Schema({
       ISBN13: {type: String, trim: true},
       ISBN10: {type: String, trim: true},
       ASIN: {type: String, trim: true},
+      recoCount: {type: Number},
       recommendedBy:[{
         _id: false,
         leaderId: {type: String, trim: true},

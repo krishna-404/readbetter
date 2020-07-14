@@ -17,7 +17,7 @@ function DisplayController() {
   };
 
   this.displayLeader = async function(req, res) {
-    let inputId = req.params.twitter_id.toLowerCase();
+    let inputId = req.params.twitter_handle.toLowerCase();
 
     if ( inputId == "admin") {
       res.sendFile(process.cwd() + "/views/admin/admin.html");
@@ -38,7 +38,7 @@ function DisplayController() {
     } 
     else {
 
-      let books = await BookModel.find({'leadersReco.twitterId': inputId}, 
+      let books = await BookModel.find({'leadersReco.twitterHandle': inputId}, 
                                         'bookName bookAuthor ISBN13 ISBN10 ASIN bookTags bookImgPath bookRBLink amazonLink recoCount leadersReco.$')
                                         .sort('-recoCount').lean();
 
@@ -48,10 +48,10 @@ function DisplayController() {
                                .sort('-recoCount').lean();
       }
 
-      let leader = await LeaderModel.findOne({'twitter.id' : inputId}, '-_id -__v -createdBy -updatedBy -createdAt -updatedAt')
+      let leader = await LeaderModel.findOne({'twitter.handle' : inputId}, '-_id -__v -createdBy -updatedBy -createdAt -updatedAt')
                                     .lean();
       if(!leader){
-        leader = await LeaderModel.findOne({_id: req.params.twitter_id}, '-_id -__v -createdBy -updatedBy -createdAt -updatedAt')
+        leader = await LeaderModel.findOne({_id: req.params.twitter_handle}, '-_id -__v -createdBy -updatedBy -createdAt -updatedAt')
                                   .lean();
       }
 
@@ -70,7 +70,40 @@ function DisplayController() {
   };
 
   this.showProfile = async function(req,res){
-    res.json(req.user);
+
+    const UserModel = require("../models/users_model");
+    let dbUser = await UserModel.findOne({twitterId: req.user.twitterId}).lean();
+
+    let bookIds = [], ISBN13s = [],  ISBN10s = [], ASINs = [];
+    let friendsBooks = dbUser.friendsBooks;
+    for(let i=0; i<friendsBooks.length; i++){
+      friendsBooks[i]._id ? bookIds.push(friendsBooks[i]._id) : null;
+      friendsBooks[i].ISBN13 ? ISBN13s.push(friendsBooks[i].ISBN13) : null;
+      friendsBooks[i].ISBN10 ? ISBN10s.push(friendsBooks[i].ISBN10) : null;
+      friendsBooks[i].ASIN ? ASINs.push(friendsBooks[i].ASIN) : null;
+    }
+
+    let books = await BookModel.find({$or : [
+                                      {_id : {$in: bookIds}},
+                                      {ISBN13: {$in: ISBN13s}},
+                                      {ISBN10: {$in: ISBN10s}},
+                                      {ASIN: {$in: ASINs}}
+                                      ]}, 
+                                        'bookName bookAuthor bookDesc bookTags bookImgPath bookRBLink amazonLink recoCount')
+                                        .sort('-recoCount').lean();
+
+    let user = req.user;
+    delete user.friendsList;
+    delete user.friendsBooks;
+    delete user.twitterOAuthToken;
+    delete user.twitterOAuthTokenSecret;
+
+    let data = {user, books};
+
+    res.render(
+      process.cwd() + "/views/user/disp-profile.ejs", {
+      data: data
+    });
   };
 }
 

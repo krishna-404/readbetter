@@ -51,7 +51,7 @@ function router(app) {
 
   app.route("/").get(displayController.displayHome);
 
-  app.route("/:twitter_id").get(displayController.displayLeader);
+  app.route("/:twitter_handle").get(displayController.displayLeader);
 
   app
     .route("/user/login")

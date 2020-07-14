@@ -46,13 +46,11 @@ module.exports = function(app){
     },
         async function(token, tokenSecret, profile, cb){
 
-            console.log("Twitter Profile: ", profile, profile.photos[0], "token: ", token, "tokenSecret: ", tokenSecret);
-
             let user = {
                 twitterId: profile._json.id_str,
                 twitterHandle: profile._json.screen_name,
                 twitterName:profile._json.name,
-                twitterImageUrl: profile._json.profile_image_url,
+                twitterImageUrl: profile._json.profile_image_url_https.replace("normal", "400x400"),
                 followersCount: profile._json.followers_count,
                 friendsCount: profile._json.friends_count,
                 listedCount: profile._json.listed_count,
@@ -63,6 +61,9 @@ module.exports = function(app){
             user = await  UserModel.findOneAndUpdate({twitterId: profile._json.id_str}, 
                                                       user, 
                                                       {upsert: true, returnOriginal: false});
+
+            delete user.twitterOAuthToken;
+            delete user.twitterOAuthTokenSecret;
 
             cb(null, user);
         }

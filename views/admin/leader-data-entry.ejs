@@ -36,6 +36,14 @@
                 <br>
                 <div><p id="textDisp"><%- data.leaderBio %></p></div>
                 <br>
+                <fieldset>
+                    <label for="useTwitterImg">Use Twitter Image: </label>
+                    <input id="useTwitterImg" type="checkbox" name="useTwitterImg" value="true">
+                </fieldset>
+                <label>
+                Leader Twitter Handle: <a href="https://twitter.com/search?q=<%= encodeURI(data.leaderName) %>&src=typed_query" target="_blank">Twitter Link</a>
+                <input name="twitter_handle" type="text" maxlength="200" required value="<%= data.twitter.handle %>">
+                </label>
                 <label>
                 Leader Image:
                 <input name="leaderImgPath" type="text" value="<%= data.leaderImgPath %>">
@@ -44,14 +52,7 @@
                 Leader Story Link:
                 <input name="leaderStoryLink" type="text" value="<%= data.leaderStoryLink %>">
                 </label>
-                <label>
-                Leader Twitter ID: <a href="https://twitter.com/search?q=<%= encodeURI(data.leaderName) %>&src=typed_query" target="_blank">Twitter Link</a>
-                <input name="twitter_id" type="text" maxlength="200" required value="<%= data.twitter.id %>">
-                </label>
-                <label>
-                Leader Twitter Followers: (in <b>Thousands</b>)
-                <input name="twitter_followers" type="number" step = "0.001" maxlength="200" required value="<%= data.twitter.followers %>">
-                </label>
+                
                 <button type="submit" id="submit-book">Add Entry</button>
             </form>
             

@@ -147,16 +147,22 @@ function adminController() {
     };
 
     this.updatedLeader = async function(req,res){
-    
+
+        const getUser = require('../twitterAPI/get-user-details.js');
+        let twitterDetails = await getUser(req.body.twitter_handle).catch(err => console.log(err));
+        console.log(twitterDetails);
+
         // console.log(req.body);
         let ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 
                   req.connection.remoteAddress || 
                   req.socket.remoteAddress || 
                   req.connection.socket.remoteAddress;
-    
+
+          
         await BookModel.updateMany({'leadersReco.leaderDbId': req.body.leaderId},{
                                               $set : {
-                                                'leadersReco.$.twitterId': req.body.twitter_id.toLowerCase()
+                                                'leadersReco.$.twitterId': twitterDetails.id_str,
+                                                'leadersReco.$.twitterHandle': twitterDetails.screen_name.toLowerCase()
                                               }
                                             });
     
@@ -164,22 +170,27 @@ function adminController() {
                                         'bookName bookAuthor ISBN13 ISBN10 ASIN bookTags bookImgPath amazonLink recoCount leadersReco.$')
                                         .sort('-recoCount').lean();
           // {'leadersReco.$' : 1, _id: 0}
-    
-        let twitterId = req.body.twitter_id.toLowerCase().replace("@", "");                                    
 
-        let newLink = encodeURI((`/${twitterId.toLowerCase() || req.body.leaderId}`));
 
+        let newLink = encodeURI((`/${twitterDetails.screen_name.toLowerCase() || req.body.leaderId}`));
+        let leaderImgPath = req.body.useTwitterImg == "true" ? 
+                            twitterDetails.profile_image_url_https.replace("normal", "400x400") :
+                            req.body.leaderImgPath;
+        
         let leader = await LeaderModel.findByIdAndUpdate(req.body.leaderId, {
                     $set: {
                       leaderName: req.body.leaderName,
                       leaderSector: req.body.leaderSector,
                       leaderBio: req.body.leaderBio,
-                      leaderImgPath: req.body.leaderImgPath,
+                      leaderImgPath: leaderImgPath,
                       leaderRBLink: newLink,
                       leaderStoryLink: req.body.leaderStoryLink,
-                      'twitter.id': twitterId,
-                      'twitter.followers': req.body.twitter_followers,
-                      sortCount: req.body.twitter_followers,
+                      useTwitterImg: req.body.useTwitterImg,
+                      'twitter.id': twitterDetails.id_str,
+                      'twitter.handle': twitterDetails.screen_name.toLowerCase(),
+                      'twitter.followers': twitterDetails.followers_count,
+                      'twitter.ImgPath' : twitterDetails.profile_image_url_https.replace("normal", "400x400"),
+                      sortCount: twitterDetails.followers_count,
                       createdBy: ip,
                       updatedBy: ip
                     }
