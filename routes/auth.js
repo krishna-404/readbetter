@@ -61,7 +61,7 @@ module.exports = function(app){
 
             user = await  UserModel.findOneAndUpdate({twitterId: profile._json.id_str}, 
                                                       user, 
-                                                      {upsert: true, returnOriginal: false});
+                                                      {upsert: true, returnOriginal: false}).lean();
 
             delete user.twitterOAuthToken;
             delete user.twitterOAuthTokenSecret;
